@@ -1,6 +1,7 @@
 import './App.css'
 import {Catalog} from "./pages/catalog/catalog.tsx";
 import {GameDetails} from "./pages/gameDetails/gameDetails.tsx";
+import {Route, Routes} from "react-router-dom";
 
 function App() {
   const games = [
@@ -119,11 +120,12 @@ function App() {
       }
     ]
   }
-
   return (
     <>
-      <Catalog games={games}></Catalog>
-      <GameDetails details={gameDetails}></GameDetails>
+      <Routes>
+        <Route path={'/'} element={<Catalog games={games}/>}></Route>
+        <Route path='game/:id' element={<GameDetails details={gameDetails}/>}></Route>
+      </Routes>
     </>
   )
 }
