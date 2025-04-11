@@ -1,54 +1,84 @@
-# React + TypeScript + Vite
+# 🎮 Free-To-Play Games — Тестовое задание для Frontend стажёра
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Описание задания
 
-Currently, two official plugins are available:
+Разработать SPA-приложение на React для сайта с бесплатными играми. Приложение состоит из двух страниц:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Главная страница со списком игр и возможностью фильтрации/сортировки
+- Страница отдельной игры с подробной информацией
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Функциональные требования
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 🏠 Главная страница
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Отображение списка игр с возможностью:
+  - Фильтрации по **жанру** и **платформе**
+  - Сортировки по **дате релиза**, **популярности** и т.д.
+- Каждая карточка игры содержит:
+  - Название
+  - Дату релиза (в **российском формате**)
+  - Издателя
+  - Жанр
+  - Картинку
+- По клику на карточку — переход на страницу игры
+- При загрузке данных — отображение **индикатора загрузки**
+- При ошибке — сообщение пользователю об ошибке
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🎮 Страница игры
+
+Содержит следующую информацию:
+
+- Название
+- Дата релиза (в **российском формате**)
+- Издатель
+- Разработчик
+- Жанр
+- Постер / обложка
+- **Карусель** скриншотов
+- Системные требования
+- Кнопка "Назад" (возврат к списку)
+
+Также:
+
+- При загрузке — отображение **индикатора загрузки**
+- При ошибке — сообщение пользователю
+
+---
+
+## ⚙️ Технические требования
+
+- Адаптивный интерфейс (для **десктопа и мобильных устройств**)
+- Использование **React 18+**
+- Состояние управляется с помощью **Redux Toolkit**
+- Роутинг через **React Router v6**
+- Любой UI-фреймворк (например, **Ant Design**, **Material UI** и др.)
+- API: [Free-To-Play Games API](https://www.freetogame.com/api-doc) (используется напрямую с фронтенда)
+- Менеджер пакетов: **npm**
+- Локальный запуск: `npm start` → http://localhost:3001
+- SPA — **переходы без перезагрузки страницы**
+- Кэш игры (если открыта) сохраняется на 5 минут и не требует повторного запроса
+
+---
+
+## 🚀 Опционально (по желанию, но плюс к оценке)
+
+- Использование **TypeScript**
+- Оптимизация работы с **большими списками** (тысячи игр)
+- **Автоматические повторы запроса (до 3 раз)** при ошибке
+- **Отмена** предыдущих запросов при переходе между страницами
+- Бэкенд на **Node.js** для проксирования запросов и хостинга статики
+- **Юнит-тесты** (например, Jest + React Testing Library)
+
+---
+
+## 🛠️ Установка и запуск
+
+```bash
+git clone https://github.com/your-username/free-to-play-games-app.git
+cd free-to-play-games-app
+npm install
+npm start
