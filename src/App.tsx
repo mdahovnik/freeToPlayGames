@@ -1,5 +1,6 @@
 import './App.css'
 import {Catalog} from "./pages/catalog/catalog.tsx";
+import {GameDetails} from "./pages/gameDetails/gameDetails.tsx";
 
 function App() {
   const games = [
@@ -82,10 +83,47 @@ function App() {
       "freetogame_profile_url": "https://www.freetogame.com/fragpunk"
     }
   ]
+  const gameDetails = {
+    "id": 582,
+    "title": "Tarisland",
+    "thumbnail": "https://www.freetogame.com/g/582/thumbnail.jpg",
+    "status": "Live",
+    "short_description": "A cross-platform MMORPG developed by Level Infinite and Published by Tencent.",
+    "description": "Tarisland is a free-to-play cross-platform MMORPG developed by Level Infinite and Published by Tencent. \r\n\r\nAvailable on PC and mobile devices, the game allows players to easily move between both, taking the game with them when they can’t be at their desk. The game is designed to appeal to players of MMOs like World of Warcraft, offering players nine playable classes and 18 specializations.\r\n\r\nEach class features an extensive talent tree system and can be customized. Players of existing MMOs will be familiar with the standard tank, DPS, and healer lineup, necessary for the game’s classic raid and dungeon system. Explore a vast game world and solve mysteries. Pick up various trades such as gathering, mining, and crafting, and sell your items on the auction house.",
+    "game_url": "https://www.freetogame.com/open/tarisland",
+    "genre": "MMORPG",
+    "platform": "Windows",
+    "publisher": "Tencent",
+    "developer": "Level Infinite",
+    "release_date": "2024-06-22",
+    "freetogame_profile_url": "https://www.freetogame.com/tarisland",
+    "minimum_system_requirements": {
+      "os": "Windows 10 64-bit",
+      "processor": "Intel Core i5-4590 or AMD FX-8350",
+      "memory": "8 GB",
+      "graphics": "Nvidia GeForce GTX 960 or AMD Radeon R9 280",
+      "storage": "20 GB"
+    },
+    "screenshots": [
+      {
+        "id": 1448,
+        "image": "https://www.freetogame.com/g/582/tarisland-1.jpg"
+      },
+      {
+        "id": 1449,
+        "image": "https://www.freetogame.com/g/582/tarisland-2.jpg"
+      },
+      {
+        "id": 1450,
+        "image": "https://www.freetogame.com/g/582/tarisland-3.jpg"
+      }
+    ]
+  }
 
   return (
     <>
       <Catalog games={games}></Catalog>
+      <GameDetails details={gameDetails}></GameDetails>
     </>
   )
 }
