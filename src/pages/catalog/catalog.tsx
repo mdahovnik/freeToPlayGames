@@ -1,6 +1,6 @@
 import {Card, Descriptions, Flex, Pagination, Spin} from "antd";
 import {TCatalog} from "./type.ts";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Link} from "react-router-dom";
 
 function formatDateRU(dateString: string): string {
@@ -12,22 +12,32 @@ function formatDateRU(dateString: string): string {
 }
 
 export const Catalog: FC<TCatalog> = ({games}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
+
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginationGames = games.slice(startIndex, startIndex + pageSize);
   return (
     <>
-      {!games.length ?
+      {!paginationGames.length ?
         <Spin size={'large'}></Spin>
         :
         <>
-          <Flex gap={'small'} wrap justify={'center'}>
+          <Flex gap={'middle'} wrap justify={'center'}>
             {
-              games.map((game) => (
-                <Link key={game.id} to={`/game/${game.id}`} style={{width: '20em'}}>
+              paginationGames.map((game) => (
+                <Link key={game.id}
+                      to={`/game/${game.id}`}
+                      style={{width: '20em'}}>
                   <Card cover={<img alt={game.short_description} src={game.thumbnail}></img>}
+                        loading={!paginationGames.length}
                         hoverable
                         onClick={() => {
                           console.log('click')
                         }}>
-                    <Descriptions title={game.title} column={1} size={'small'}>
+                    <Descriptions title={game.title}
+                                  column={1}
+                                  size={'small'}>
                       <Descriptions.Item label={'Release date'}>
                         {formatDateRU(game.release_date)}
                       </Descriptions.Item>
@@ -45,7 +55,13 @@ export const Catalog: FC<TCatalog> = ({games}) => {
                 </Link>
               ))}
           </Flex>
-          <Pagination defaultCurrent={6} total={500}/>
+          <Pagination defaultCurrent={1}
+                      total={games.length}
+                      defaultPageSize={9}
+                      pageSizeOptions={[9, 18, 36, 72]}
+                      onShowSizeChange={(_, size) => setPageSize(size)}
+                      onChange={(page => setCurrentPage(page))}
+                      align={'center'}/>
         </>
       }
     </>
