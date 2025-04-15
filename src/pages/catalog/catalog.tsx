@@ -28,7 +28,9 @@ export const Catalog: FC<TCatalog> = ({games}) => {
               paginationGames.map((game) => (
                 <Link key={game.id}
                       to={`/game/${game.id}`}
-                      style={{width: '20em'}}>
+                      style={{width: '20em'}}
+                      onClick={() => {
+                      }}>
                   <Card cover={<img alt={game.short_description} src={game.thumbnail}></img>}
                         loading={!paginationGames.length}
                         hoverable
