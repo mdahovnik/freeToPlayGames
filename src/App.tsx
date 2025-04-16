@@ -2,39 +2,31 @@ import './App.css'
 import {Catalog} from "./pages/catalog/catalog.tsx";
 import {GameDetails} from "./pages/gameDetails/gameDetails.tsx";
 import {Route, Routes} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {getGamesApi} from "./utils/game-api.ts";
-import {TGameCard} from "./pages/catalog/type.ts";
+import {Layout} from "antd";
+import {Content} from "antd/es/layout/layout";
+
+
+const contentStyle: React.CSSProperties = {
+  textAlign: 'center',
+  minHeight: 120,
+  lineHeight: '120px',
+  color: '#fff',
+  backgroundColor: '#4096ff',
+};
 
 function App() {
-  const [games, setGames] = useState<TGameCard[]>([]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    const {signal} = abortController;
-
-    const fetchGames = async () => {
-      try {
-        const gamesData = await getGamesApi(signal);
-        console.log(gamesData)
-        setGames(gamesData)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    fetchGames().then(() => console.log('games loaded'))
-    return () => {
-      abortController.abort();
-    }
-  }, [])
 
   return (
     <>
-      <Routes>
-        <Route path={'/'} element={games && <Catalog games={games}/>}></Route>
-        <Route path='game/:id' element={<GameDetails/>}></Route>
-      </Routes>
+      <Layout>
+        <Content style={contentStyle}>
+          <Routes>
+            <Route path={'/'} element={<Catalog/>}></Route>
+            <Route path='game/:id' element={<GameDetails>Game Details</GameDetails>}></Route>
+          </Routes>
+        </Content>
+        {/*<Footer></Footer>*/}
+      </Layout>
     </>
   )
 }
