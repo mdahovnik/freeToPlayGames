@@ -60,7 +60,7 @@ export const GameDetails: FC<TGameDetailProps> = ({children, ...props}) => {
 
   return (
     <>
-      <Flex style={{marginInline: '10px'}}>
+      <Flex wrap style={{marginInline: '10px'}} justify={'center'}>
         <Link to={'/'}>
           <Button><LeftOutlined/></Button>
         </Link>

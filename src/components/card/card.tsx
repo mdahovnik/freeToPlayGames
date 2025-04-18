@@ -1,6 +1,8 @@
+import style from './card.module.css';
 import {FC, useState} from "react";
-import {Card, Carousel, Descriptions, Image, Skeleton} from "antd";
+import {Card, CardProps, Carousel, Descriptions, DescriptionsProps, Image, Skeleton} from "antd";
 import {TGameCard} from "../../pages/catalog/type.ts";
+import * as React from "react";
 
 type TGameCardProps = {
   card: TGameCard;
@@ -14,25 +16,65 @@ function formatDateRU(dateString: string): string {
   return `${day}.${month}.${year}`;
 }
 
-export const GameCard: FC<TGameCardProps> = ({card}) => {
-  const [loaded, setLoaded] = useState(true);
+// Стили для тела карточки
+const cardStyles: CardProps['styles'] = {
+  body: {
+    padding: 10,
+    background: '#3a3f44',
+  },
+};
+
+const descriptionsStyles: DescriptionsProps['styles'] = {
+  title: {
+    color: '#e9ecef',
+    textTransform: 'uppercase',
+  },
+  content: {
+    color: '#e9ecef',
+  },
+  label: {
+    color: '#7a8288'
+  }
+}
+
+export const GameCard: FC<TGameCardProps> = React.memo(({card}) => {
+  const [loaded, setLoaded] = useState(false);
   return (
-    <Card cover={
-      <>
-        {!loaded && <Skeleton.Image  active/>}
-        <img alt={card.title} src={card.thumbnail} loading={'lazy'} onLoad={() => setLoaded(true)}/>
-      </>
-    }>
-      <Descriptions title={card.title}
-                    column={1}
+    <Card className={style.cardGameStyle}
+          styles={cardStyles}
+          cover={
+            <>
+              {!loaded &&
+                  <Skeleton.Image active style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '160px'
+                  }}/>
+              }
+              <img alt={card.title}
+                   src={card.thumbnail}
+                   style={{}}
+                   onLoad={() => setLoaded(true)}/>
+            </>
+          }
+    >
+
+      <Descriptions column={1}
+                    title={card.title}
+                    styles={descriptionsStyles}
+                    className={style.cardDescription}
                     size={'small'}>
         <Descriptions.Item label={'Release date'}>
           {formatDateRU(card.release_date)}
         </Descriptions.Item>
         <Descriptions.Item label={'Publisher'}>
-          {card.publisher}</Descriptions.Item>
+          {card.publisher}
+        </Descriptions.Item>
         <Descriptions.Item label={'Genre'}>
-          {card.genre}</Descriptions.Item>
+          {card.genre}
+        </Descriptions.Item>
         <Descriptions.Item label={'Developer'}>
           {card.developer}
         </Descriptions.Item>
@@ -42,14 +84,16 @@ export const GameCard: FC<TGameCardProps> = ({card}) => {
               {card.description}
             </Descriptions.Item>}
       </Descriptions>
-      {card.screenshots?.length &&
+      {
+        card.screenshots?.length &&
           <Carousel arrows infinite={true}>
             {
               card.screenshots.map((item) => (
                 <Image src={item.image}></Image>
               ))
             }
-          </Carousel>}
+          </Carousel>
+      }
     </Card>
   )
-}
+})

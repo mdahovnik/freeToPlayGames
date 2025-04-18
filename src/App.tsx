@@ -6,20 +6,12 @@ import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 
 
-const contentStyle: React.CSSProperties = {
-  textAlign: 'center',
-  minHeight: 120,
-  lineHeight: '120px',
-  color: '#fff',
-  backgroundColor: '#4096ff',
-};
-
 function App() {
 
   return (
     <>
       <Layout>
-        <Content style={contentStyle}>
+        <Content className={'content'}>
           <Routes>
             <Route path={'/'} element={<Catalog/>}></Route>
             <Route path='game/:id' element={<GameDetails>Game Details</GameDetails>}></Route>
