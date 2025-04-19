@@ -27,6 +27,7 @@ const cardStyles: CardProps['styles'] = {
 const descriptionsStyles: DescriptionsProps['styles'] = {
   title: {
     color: '#e9ecef',
+    textAlign: 'start',
     textTransform: 'uppercase',
   },
   content: {
@@ -60,7 +61,6 @@ export const GameCard: FC<TGameCardProps> = React.memo(({card}) => {
             </>
           }
     >
-
       <Descriptions column={1}
                     title={card.title}
                     styles={descriptionsStyles}

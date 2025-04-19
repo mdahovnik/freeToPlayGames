@@ -2,20 +2,16 @@ import style from './catalog.module.css';
 import {List, Select, Space} from "antd";
 import {TGameCard} from "./type.ts";
 import {FC, useEffect, useState} from "react";
-// import {getGamesApi} from "../../utils/game-api.ts";
 import * as React from "react";
 import {GameCard} from "../../components/card/card.tsx";
 import {Link} from "react-router-dom";
-import Title, {TitleProps} from "antd/es/typography/Title";
+import Title from "antd/es/typography/Title";
 import {Header} from "antd/es/layout/layout";
 
 function handleChange() {
 
 }
 
-const titleStyles: TitleProps['style'] = {
-  color: '#e9ecef'
-}
 const gamesData = [
   {
     "id": 582,
@@ -405,15 +401,17 @@ export const Catalog: FC = React.memo(() => {
     <>
       <div className={style.catalogWrapper}>
         <Header className={style.headerStyle}>
-          <Title className={style.catalogWrapper}
-                 style={titleStyles}>Game Catalog</Title>
+          <Title className={style.catalogWrapper}>
+            Game Catalog
+          </Title>
         </Header>
         <Space size={'middle'}
                style={{marginTop: 100, lineHeight: 'normal', alignSelf: 'center'}}>
           <div>
             <span className={style.selectLabel}>Platform:</span>
             <Select defaultValue="All Platforms"
-                    style={{width: 120, background: 'transparent'}}
+                    variant={'borderless'}
+
                     onChange={handleChange}
                     options={platformsRange}
             />
@@ -422,6 +420,7 @@ export const Catalog: FC = React.memo(() => {
             <span className={style.selectLabel}>Genre:</span>
             <Select defaultValue="Shooter"
                     style={{width: 120}}
+                    variant={'borderless'}
                     options={genreRange}
             />
           </div>
@@ -429,6 +428,7 @@ export const Catalog: FC = React.memo(() => {
             <span className={style.selectLabel}>Sort By:</span>
             <Select defaultValue="Relevance"
                     style={{width: 120}}
+                    variant={'borderless'}
                     options={sortTypeRange}
             />
           </div>

@@ -3,7 +3,7 @@
     margin: 0 auto;
     text-align: center;
     overflow-x: hidden;
-    background: var(--dark);
+    /*background: var(--dark);*/
 
     --blue: #007bff;
     --indigo: #6610f2;
@@ -35,8 +35,17 @@
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-body {
-    /*background: #272b30;*/
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+    color: var(--light);
+}
+
+svg {
+    color: var(--cyan);
+}
+
+h1.ant-typography {
+    color: var(--light);
+    text-transform: uppercase;
 }
 
 .content {
@@ -44,29 +53,20 @@ body {
     overflow: hidden;
     line-height: 120px;
     background-color: var(--dark);
-    color: var(--gray);
+    /*color: var(--gray);*/
 }
 
-@keyframes logo-spin {
-    from {
-        transform: rotate(0deg);
+@media (prefers-color-scheme: light) {
+    #root {
+        color: #213547;
+        background-color: #ffffff;
     }
 
-    to {
-        transform: rotate(360deg);
+    a:hover {
+        color: #747bff;
+    }
+
+    button {
+        background-color: #f9f9f9;
     }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-    a:nth-of-type(2) .logo {
-        animation: logo-spin infinite 20s linear;
-    }
-}
-
-/*.card {*/
-/*    padding: 2em;*/
-/*}*/
-
-/*.read-the-docs {*/
-/*    color: #888;*/
-/*}*/
