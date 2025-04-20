@@ -2,7 +2,7 @@
 
 import {TGameCard} from "../pages/catalog/type.ts";
 
-const API_GAMES_URL = 'https://api.allorigins.win/get?url=https://www.freetogame.com/api/games&limit=${5}';
+const API_GAMES_URL = 'https://api.allorigins.win/get?url=https://www.freetogame.com/api/games';
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok

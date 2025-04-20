@@ -1,0 +1,6 @@
+.detailCardStyle {
+    background-color: var(--gray-dark);
+    overflow: hidden;
+    position: relative;
+    border: none;
+}

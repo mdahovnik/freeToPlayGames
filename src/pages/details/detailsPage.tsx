@@ -1,31 +1,21 @@
-import {Button, Flex, Spin} from "antd";
+import {Spin} from "antd";
 import {FC, useEffect, useState} from "react";
 import {getGameDetails} from "../../utils/game-api.ts";
-import {Link, useParams} from "react-router-dom";
-import {LeftOutlined} from "@ant-design/icons";
-import {GameCard} from "../../components/card/card.tsx";
+import {useNavigate, useParams} from "react-router-dom";
+import {DetailsCard} from "../../components/card/detailsTemplate/detailsCard.tsx";
 import {TGameCard} from "../catalog/type.ts";
+import {PageHeader} from '@ant-design/pro-components';
 
-// const headerStyle: React.CSSProperties = {
-//   textAlign: 'center',
-//   color: '#fff',
-//   height: 64,
-//   fontSize: 32,
-//   paddingInline: 48,
-//   lineHeight: '64px',
-//   backgroundColor: '#4096ff',
-// };
+// type TGameDetailProps = {
+//   children: string
+// }
 
-type TGameDetailProps = {
-  children: string
-}
-
-export const GameDetails: FC<TGameDetailProps> = ({children, ...props}) => {
+export const DetailsPage: FC = () => {
   const {id} = useParams();
   const [gameDetails, setGameDetails] = useState<TGameCard | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (!id) return;
 
@@ -57,18 +47,15 @@ export const GameDetails: FC<TGameDetailProps> = ({children, ...props}) => {
   if (isLoading) {
     return <Spin size={'large'} tip='Data loading...'></Spin>
   }
-
+  const onBack = () => navigate('/')
   return (
-    <>
-      <Flex wrap style={{marginInline: '10px'}} justify={'center'}>
-        <Link to={'/'}>
-          <Button><LeftOutlined/></Button>
-        </Link>
-        <h1 {...props} style={{marginInline: '10px'}}>{children}</h1>
-      </Flex>
+    <div>
+      <PageHeader
+        title={'Game Details'}
+        onBack={onBack}/>
       {gameDetails &&
-          <GameCard card={gameDetails}/>
+          <DetailsCard card={gameDetails}/>
       }
-    </>
+    </div>
   )
 }

@@ -30,9 +30,20 @@
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
-    --breakpoint-xl: 1200px;
+    --breakpoint-xl: 1280px;
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    --min-font-size: 16px;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+    background: #272b30;
 }
 
 .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
@@ -46,27 +57,91 @@ svg {
 h1.ant-typography {
     color: var(--light);
     text-transform: uppercase;
+    margin: .5rem 0;
+    font-size: calc(var(--min-font-size) + 16 * (100vw / 1280));
+}
+
+.ant-page-header .ant-page-header-heading-title {
+    color: var(--light);
+    font-size: calc(var(--min-font-size) + 16 * (100vw / 1280));
+    text-transform: uppercase;
+}
+
+.ant-layout-header {
+    align-content: center;
+}
+
+.ant-layout {
+    max-height: 100%;
+}
+
+.ant-card .ant-card-body {
+    padding: .8rem;
+}
+
+.ant-descriptions-small .ant-descriptions-row > td {
+    padding-bottom: .2rem;
+}
+
+.ant-card .ant-card-grid {
+    padding: 0;
+    box-shadow: none;
+}
+
+.ant-descriptions-title {
+    color: var(--light) !important;
+    text-align: start;
+    text-transform: uppercase;
+}
+
+.ant-descriptions-item-content {
+    color: var(--light) !important;
+}
+
+.ant-descriptions-item-label {
+    color: var(--gray) !important;
+}
+
+.ant-spin {
+    background: var(--dark);
+}
+
+/*.ant-row {*/
+/*    align-items: stretch;*/
+/*}*/
+
+.ant-list-item {
+    height: 100%;
+}
+
+.ant-col {
+    height: 100%;
+}
+
+.layout {
+    min-height: 100vh;
 }
 
 .content {
     max-width: 1280px;
+    min-height: 100%;
     overflow: hidden;
-    line-height: 120px;
-    background-color: var(--dark);
-    /*color: var(--gray);*/
+    /*line-height: 60px;*/
+    background: var(--dark);
+    color: var(--gray);
 }
 
-@media (prefers-color-scheme: light) {
-    #root {
-        color: #213547;
-        background-color: #ffffff;
-    }
+/*@media (prefers-color-scheme: light) {*/
+/*    #root {*/
+/*        color: #213547;*/
+/*        background-color: #ffffff;*/
+/*    }*/
 
-    a:hover {
-        color: #747bff;
-    }
+/*    a:hover {*/
+/*        color: #747bff;*/
+/*    }*/
 
-    button {
-        background-color: #f9f9f9;
-    }
-}
+/*    button {*/
+/*        background-color: #f9f9f9;*/
+/*    }*/
+/*}*/
