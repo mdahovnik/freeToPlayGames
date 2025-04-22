@@ -4,3 +4,27 @@
     position: relative;
     border: none;
 }
+
+.poster {
+    width: 30% !important;
+    padding: 1rem !important;
+}
+
+.screenShorts {
+    width: 70% !important;
+    padding: 1rem !important;
+}
+
+@media screen and (max-width: 720px) {
+
+    .poster {
+        width: 100% !important;
+        padding-bottom: 0 !important;
+    }
+
+    .screenShorts {
+        width: 100% !important;
+        padding-top: 0 !important;
+    }
+}
+

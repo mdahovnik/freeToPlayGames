@@ -1,5 +1,5 @@
 import './App.css'
-import {CatalogPage} from "./pages/catalog/catalogPage.tsx";
+import {GalleryPage} from "./pages/gallery/galleryPage.tsx";
 import {DetailsPage} from "./pages/details/detailsPage.tsx";
 import {Route, Routes} from "react-router-dom";
 import {Layout} from "antd";
@@ -13,7 +13,7 @@ function App() {
       <Layout className={'layout'}>
         <Content className={'content'}>
           <Routes>
-            <Route path={'/'} element={<CatalogPage/>}></Route>
+            <Route path={'/'} element={<GalleryPage/>}></Route>
             <Route path={'game/:id'} element={<DetailsPage/>}></Route>
           </Routes>
         </Content>

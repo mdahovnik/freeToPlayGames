@@ -1,5 +1,5 @@
-import style from './catalog.module.css';
-import {Flex, List, Select, Skeleton, Space} from "antd";
+import style from './gallery.module.css';
+import {List, Select, Space} from "antd";
 import {TGameCard} from "./type.ts";
 import {FC, useEffect, useRef, useState} from "react";
 import * as React from "react";
@@ -14,13 +14,13 @@ function handleChange() {
 
 }
 
-const groupIntoRows = (data: TGameCard[], columns: number) => {
-  const rows: TGameCard[][] = [];
-  for (let i = 0; i < data.length; i += columns) {
-    rows.push(data.slice(i, i + columns));
-  }
-  return rows;
-};
+// const groupIntoRows = (data: TGameCard[], columns: number) => {
+//   const rows: TGameCard[][] = [];
+//   for (let i = 0; i < data.length; i += columns) {
+//     rows.push(data.slice(i, i + columns));
+//   }
+//   return rows;
+// };
 
 // const gamesData = [
 //   {
@@ -385,7 +385,7 @@ const sortTypeRange = [
   {value: 'Alphabetical', label: 'Alphabetical'}
 ]
 
-export const CatalogPage: FC = React.memo(() => {
+export const GalleryPage: FC = React.memo(() => {
   // const [currentPage, setCurrentPage] = useState(1);
   // const [pageSize, setPageSize] = useState(9);
   const [games, setGames] = useState<TGameCard[]>([]);
@@ -478,24 +478,24 @@ export const CatalogPage: FC = React.memo(() => {
         {/*        </Space>))}*/}
         {/*    </Flex>*/}
         {/*  ) : (*/}
-            <List dataSource={games}
-                  pagination={{position: 'top'}}
-                  loading={isLoading}
-                  grid={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5}}
-                  renderItem={(game) => {
-                    return (
-                      <List.Item key={game.id}>
-                        <Link to={`/game/${game.id}`}
-                              onClick={() => {
-                                console.log('click')
-                              }}>
-                          <GalleryCard card={game}/>
-                        </Link>
-                      </List.Item>
-                    )
-                  }
-                  }>
-            </List>
+        <List dataSource={games}
+              pagination={{position: 'bottom', align: 'start', pageSize: 20}}
+              loading={isLoading}
+              grid={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5}}
+              renderItem={(game) => {
+                return (
+                  <List.Item key={game.id}>
+                    <Link to={`/game/${game.id}`}
+                          onClick={() => {
+                            console.log('click')
+                          }}>
+                      <GalleryCard card={game}/>
+                    </Link>
+                  </List.Item>
+                )
+              }
+              }>
+        </List>
         {/*  )*/}
         {/*}*/}
       </div>
