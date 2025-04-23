@@ -25,10 +25,8 @@ export const DetailsPage: FC = () => {
       try {
         setIsLoading(true);
         const gameDetails = await getGameDetails(id, signal);
-        console.log("fetchGameDetails: ", gameDetails);
         setGameDetails(gameDetails);
       } catch (err) {
-        console.log("fetchGameDetails =>", err);
         // setError(err)
       } finally {
         setIsLoading(false);

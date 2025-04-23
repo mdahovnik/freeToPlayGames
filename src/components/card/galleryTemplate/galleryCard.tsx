@@ -47,9 +47,6 @@ export const GalleryCard: FC<TGameCardProps> = React.memo(({ card }) => {
           <Item label={"genre"}>
             <Text ellipsis>{card.genre}</Text>
           </Item>
-          <Item label={"developer"}>
-            <Text ellipsis>{card.developer}</Text>
-          </Item>
         </Descriptions>
       )}
     </Card>
