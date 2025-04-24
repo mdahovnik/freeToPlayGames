@@ -4,19 +4,26 @@ import { Card, Descriptions, Skeleton, Space, Typography } from "antd";
 import * as React from "react";
 import { TGameCard } from "../../../pages/gallery/type.ts";
 import { formatDateRU } from "../../../utils/hooks.ts";
+import { useNavigate } from "react-router-dom";
 
 type TGameCardProps = {
   card: TGameCard;
 };
 
-export const GalleryCard: FC<TGameCardProps> = React.memo(({ card }) => {
+export const GalleryCard: FC<TGameCardProps> = ({ card }) => {
+  const navigation = useNavigate();
   const { Item } = Descriptions;
   const { Text } = Typography;
 
+  const onClick = (id: number) => {
+    navigation(`/game/${id}`);
+  };
   const [isLoading, setIsLoading] = useState(true);
   return (
     <Card
       className={style.galleryCardStyle}
+      onClick={() => onClick(card.id)}
+      hoverable
       cover={
         <>
           <Skeleton.Image active={isLoading} className={style.coverSkeleton} />
@@ -51,4 +58,4 @@ export const GalleryCard: FC<TGameCardProps> = React.memo(({ card }) => {
       )}
     </Card>
   );
-});
+};

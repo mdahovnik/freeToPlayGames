@@ -1,18 +1,20 @@
-import style from './gallery.module.css';
-import {List, Select, Space} from "antd";
-import {TGameCard} from "./type.ts";
-import {FC, useEffect, useRef, useState} from "react";
+import style from "./gallery.module.css";
+import { List, Pagination, PaginationProps, Select, Space } from "antd";
+import { FC, useEffect, useRef, useState } from "react";
 import * as React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Title from "antd/es/typography/Title";
-import {Header} from "antd/es/layout/layout";
-import {LayoutFilled, WindowsFilled} from "@ant-design/icons";
-import {GalleryCard} from "../../components/card/galleryTemplate/galleryCard.tsx";
-import {getGamesApi} from "../../utils/game-api.ts";
+import { Header } from "antd/es/layout/layout";
+import { LayoutFilled, WindowsFilled } from "@ant-design/icons";
+import { GalleryCard } from "../../components/card/galleryTemplate/galleryCard.tsx";
+import { useDispatch, useSelector } from "../../services/store/store.ts";
+import { getGames } from "../../services/slices/gamesSlice/games-thunk.ts";
+import {
+  selectGames,
+  selectIsLoading,
+} from "../../services/slices/gamesSlice/gamesSlice.ts";
 
-function handleChange() {
-
-}
+function handleChange() {}
 
 // const groupIntoRows = (data: TGameCard[], columns: number) => {
 //   const rows: TGameCard[][] = [];
@@ -350,120 +352,109 @@ function handleChange() {
 //   }
 // ]
 const genreRange = [
-  {value: 'MMO', label: 'MMO'},
-  {value: 'MMORPG', label: 'MMORPG'},
-  {value: 'Shooter', label: 'Shooter'},
-  {value: 'Strategy', label: 'Strategy'},
-  {value: 'Card Games', label: 'Card Games'},
-  {value: 'Racing', label: 'Racing'},
-  {value: 'Sports', label: 'Sports'},
-  {value: 'Social', label: 'Social'},
-  {value: 'Fighting', label: 'Fighting'},
-]
+  { value: "MMO", label: "MMO" },
+  { value: "MMORPG", label: "MMORPG" },
+  { value: "Shooter", label: "Shooter" },
+  { value: "Strategy", label: "Strategy" },
+  { value: "Card Games", label: "Card Games" },
+  { value: "Racing", label: "Racing" },
+  { value: "Sports", label: "Sports" },
+  { value: "Social", label: "Social" },
+  { value: "Fighting", label: "Fighting" },
+];
 const platformsRange = [
   {
-    value: 'Windows', label: (
+    value: "Windows",
+    label: (
       <span>
-        <WindowsFilled/>
+        <WindowsFilled />
         &nbsp;Windows
-      </span>)
+      </span>
+    ),
   },
   {
-    value: 'Browser', label: (
+    value: "Browser",
+    label: (
       <span>
-        <LayoutFilled/>
+        <LayoutFilled />
         &nbsp;Browser
       </span>
-    )
+    ),
   },
-  {value: 'All Platforms', label: 'All Platforms'}
-]
+  { value: "All Platforms", label: "All Platforms" },
+];
 const sortTypeRange = [
-  {value: 'Relevance', label: 'Relevance'},
-  {value: 'Popularity', label: 'Popularity'},
-  {value: 'Release Date', label: 'Release Date'},
-  {value: 'Alphabetical', label: 'Alphabetical'}
-]
+  { value: "Relevance", label: "Relevance" },
+  { value: "Popularity", label: "Popularity" },
+  { value: "Release Date", label: "Release Date" },
+  { value: "Alphabetical", label: "Alphabetical" },
+];
 
 export const GalleryPage: FC = React.memo(() => {
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [pageSize, setPageSize] = useState(9);
-  const [games, setGames] = useState<TGameCard[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const containerRef = useRef<HTMLDivElement>(null);
   // const [height, setHeight] = useState(0);
   // const [rows, setRows] = useState<TGameCard[][]>();
   // const rows = groupIntoRows(games, 3);
 
+  const dispatch = useDispatch();
+  const games = useSelector(selectGames);
+  const isLoading = useSelector(selectIsLoading);
+
+  const onPageChange: PaginationProps["onChange"] = (page) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     const abortController = new AbortController();
-    const {signal} = abortController;
-    setIsLoading(true);
+    const { signal } = abortController;
 
-    const fetchGames = async () => {
-      try {
-        const gamesData = await getGamesApi(signal);
-        setGames(gamesData);
-        setIsLoading(false);
-        // setRows(groupIntoRows(gamesData, 3))
-      } catch (err) {
-        console.log(err)
-      } finally {
-        console.log('finally');
-      }
-    }
-
-    fetchGames().then(() => {
-    })
-
-    // if (!containerRef.current) return;
-    // const resizeObserver = new ResizeObserver((entries) => {
-    //   const [entry] = entries;
-    //   setHeight(entry.contentRect.height);
-    // })
-
-    // resizeObserver.observe(containerRef.current);
+    dispatch(getGames(signal));
 
     return () => {
-      // resizeObserver.disconnect();
       abortController.abort();
-    }
-  }, [])
+    };
+  }, [dispatch]);
 
-  // const startIndex = (currentPage - 1) * pageSize;
-  // const paginationGames = games.slice(startIndex, startIndex + pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginationGames = games.slice(startIndex, startIndex + pageSize);
 
   return (
     <>
       <div ref={containerRef}>
         <Header className={style.headerStyle}>
-          <Title className={style.catalogWrapper}>
-            Free To Play Games
-          </Title>
+          <Title className={style.catalogWrapper}>Free To Play Games</Title>
         </Header>
-        <Space size={'middle'}
-               style={{marginTop: 90, lineHeight: 'normal', alignSelf: 'center'}}>
+        <Space
+          size={"middle"}
+          style={{ marginTop: 90, lineHeight: "normal", alignSelf: "center" }}>
           <div>
             <span className={style.selectLabel}>Platform:</span>
-            <Select defaultValue="All Platforms"
-                    variant={'borderless'}
-                    onChange={handleChange}
-                    options={platformsRange}/>
+            <Select
+              defaultValue="All Platforms"
+              variant={"borderless"}
+              onChange={handleChange}
+              options={platformsRange}
+            />
           </div>
           <div>
             <span className={style.selectLabel}>Genre:</span>
-            <Select defaultValue="Shooter"
-                    variant={'borderless'}
-                    options={genreRange}/>
+            <Select
+              defaultValue="Shooter"
+              variant={"borderless"}
+              options={genreRange}
+            />
           </div>
           <div>
             <span className={style.selectLabel}>Sort By:</span>
-            <Select defaultValue="Relevance"
-                    variant={'borderless'}
-                    options={sortTypeRange}/>
+            <Select
+              defaultValue="Relevance"
+              variant={"borderless"}
+              options={sortTypeRange}
+            />
           </div>
         </Space>
-
 
         {/*{isLoading ?*/}
         {/*  (*/}
@@ -478,27 +469,29 @@ export const GalleryPage: FC = React.memo(() => {
         {/*        </Space>))}*/}
         {/*    </Flex>*/}
         {/*  ) : (*/}
-        <List dataSource={games}
-              pagination={{position: 'bottom', align: 'start', pageSize: 20}}
-              loading={isLoading}
-              grid={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5}}
-              renderItem={(game) => {
-                return (
-                  <List.Item key={game.id}>
-                    <Link to={`/game/${game.id}`}
-                          onClick={() => {
-                            console.log('click')
-                          }}>
-                      <GalleryCard card={game}/>
-                    </Link>
-                  </List.Item>
-                )
-              }
-              }>
-        </List>
+        <List
+          dataSource={paginationGames}
+          // pagination={{ position: "bottom", align: "start", pageSize: 20 }}
+          loading={isLoading}
+          grid={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5 }}
+          renderItem={(game) => {
+            return (
+              <List.Item key={game.id}>
+                <GalleryCard card={game} />
+              </List.Item>
+            );
+          }}
+        />
+        <Pagination
+          current={currentPage}
+          onChange={onPageChange}
+          total={games.length}
+          // pageSize={20}
+          defaultPageSize={20}
+          showSizeChanger={true}></Pagination>
         {/*  )*/}
         {/*}*/}
       </div>
     </>
-  )
-})
+  );
+});

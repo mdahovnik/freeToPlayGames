@@ -1,7 +1,7 @@
 import { TGameCard } from "../../../pages/gallery/type";
 
-type TGamesState = {
+export type TState = {
   games: TGameCard[];
   isLoading: boolean;
-  error: string;
+  error: string | null;
 };
