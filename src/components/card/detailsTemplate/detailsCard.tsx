@@ -35,11 +35,11 @@ export const DetailsCard: FC<TGameCardProps> = React.memo(({ card }) => {
               size={"small"}>
               {Object.entries(card.minimum_system_requirements).map(
                 ([key, value]) => (
-                  <Descriptions.Item
+                  <Item
                     label={key}
                     styles={{ content: { textAlign: "start" } }}>
                     {value}
-                  </Descriptions.Item>
+                  </Item>
                 )
               )}
             </Descriptions>
