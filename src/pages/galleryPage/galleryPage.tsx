@@ -1,6 +1,6 @@
 import style from "./gallery.module.css";
 import { List, Pagination, PaginationProps, Select, Space } from "antd";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import Title from "antd/es/typography/Title";
@@ -10,11 +10,15 @@ import { GalleryCard } from "../../components/card/galleryTemplate/galleryCard.t
 import { useDispatch, useSelector } from "../../services/store/store.ts";
 import { getGames } from "../../services/slices/gamesSlice/games-thunk.ts";
 import {
+  clearGames,
   selectGames,
-  selectIsLoading,
 } from "../../services/slices/gamesSlice/gamesSlice.ts";
-
-function handleChange() {}
+import { getGamesApi } from "../../utils/game-api.ts";
+import { TGame } from "./type.ts";
+import { PaginationComponent } from "../../components/pagination/paginationComponent.tsx";
+import { Filter } from "../../components/filter/filter.tsx";
+import { ErrorMessage } from "../../components/error/errorMessage.tsx";
+import { Gallery } from "../../components/gallery/gallery.tsx";
 
 // const groupIntoRows = (data: TGameCard[], columns: number) => {
 //   const rows: TGameCard[][] = [];
@@ -351,147 +355,124 @@ function handleChange() {}
 //     "freetogame_profile_url": "https://www.freetogame.com/palia"
 //   }
 // ]
-const genreRange = [
-  { value: "MMO", label: "MMO" },
-  { value: "MMORPG", label: "MMORPG" },
-  { value: "Shooter", label: "Shooter" },
-  { value: "Strategy", label: "Strategy" },
-  { value: "Card Games", label: "Card Games" },
-  { value: "Racing", label: "Racing" },
-  { value: "Sports", label: "Sports" },
-  { value: "Social", label: "Social" },
-  { value: "Fighting", label: "Fighting" },
-];
-const platformsRange = [
-  {
-    value: "Windows",
-    label: (
-      <span>
-        <WindowsFilled />
-        &nbsp;Windows
-      </span>
-    ),
-  },
-  {
-    value: "Browser",
-    label: (
-      <span>
-        <LayoutFilled />
-        &nbsp;Browser
-      </span>
-    ),
-  },
-  { value: "All Platforms", label: "All Platforms" },
-];
-const sortTypeRange = [
-  { value: "Relevance", label: "Relevance" },
-  { value: "Popularity", label: "Popularity" },
-  { value: "Release Date", label: "Release Date" },
-  { value: "Alphabetical", label: "Alphabetical" },
-];
+// const genreRange = [
+//   { value: "MMO", label: "MMO" },
+//   { value: "MMORPG", label: "MMORPG" },
+//   { value: "Shooter", label: "Shooter" },
+//   { value: "Strategy", label: "Strategy" },
+//   { value: "Card Games", label: "Card Games" },
+//   { value: "Racing", label: "Racing" },
+//   { value: "Sports", label: "Sports" },
+//   { value: "Social", label: "Social" },
+//   { value: "Fighting", label: "Fighting" },
+// ];
+// const platformsRange = [
+//   {
+//     value: "Windows",
+//     label: (
+//       <span>
+//         <WindowsFilled />
+//         &nbsp;Windows
+//       </span>
+//     ),
+//   },
+//   {
+//     value: "Browser",
+//     label: (
+//       <span>
+//         <LayoutFilled />
+//         &nbsp;Browser
+//       </span>
+//     ),
+//   },
+//   { value: "All Platforms", label: "All Platforms" },
+// ];
+// const sortTypeRange = [
+//   { value: "Relevance", label: "Relevance" },
+//   { value: "Popularity", label: "Popularity" },
+//   { value: "Release Date", label: "Release Date" },
+//   { value: "Alphabetical", label: "Alphabetical" },
+// ];
 
 export const GalleryPage: FC = React.memo(() => {
+  // const containerRef = useRef<HTMLDivElement>(null);
+  // const [gamesList, setGamesList] = useState<TGame[]>([]);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const containerRef = useRef<HTMLDivElement>(null);
-  // const [height, setHeight] = useState(0);
-  // const [rows, setRows] = useState<TGameCard[][]>();
-  // const rows = groupIntoRows(games, 3);
+  const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
 
-  const dispatch = useDispatch();
-  const games = useSelector(selectGames);
-  const isLoading = useSelector(selectIsLoading);
-
-  const onPageChange: PaginationProps["onChange"] = (page) => {
-    setCurrentPage(page);
-  };
+  const { games, error, isLoading } = useSelector(selectGames);
 
   useEffect(() => {
     const abortController = new AbortController();
     const { signal } = abortController;
-
-    dispatch(getGames(signal));
-
+    dispatch(getGames());
     return () => {
       abortController.abort();
+      // dispatch(clearGames());
     };
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   // setCurrentPage(1);
+  //   setGamesList(games);
+  // }, [games]);
+
   const startIndex = (currentPage - 1) * pageSize;
-  const paginationGames = games.slice(startIndex, startIndex + pageSize);
+
+  useEffect(() => {
+    setItemsToDisplay(games.slice(startIndex, startIndex + pageSize));
+  }, [startIndex, currentPage]);
+
+  // const paginationGames = useMemo(() => {
+  //   console.log("paginationGames = useMemo");
+  //   return games.slice(startIndex, startIndex + pageSize);
+  // }, [games, startIndex, pageSize]);
+  // const onPageChange: PaginationProps["onChange"] = (page) => {
+  //   setCurrentPage(page);
+  // };
+
+  if (error) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>
-      <div ref={containerRef}>
+      <div>
         <Header className={style.headerStyle}>
           <Title className={style.catalogWrapper}>Free To Play Games</Title>
         </Header>
-        <Space
-          size={"middle"}
-          style={{ marginTop: 90, lineHeight: "normal", alignSelf: "center" }}>
-          <div>
-            <span className={style.selectLabel}>Platform:</span>
-            <Select
-              defaultValue="All Platforms"
-              variant={"borderless"}
-              onChange={handleChange}
-              options={platformsRange}
-            />
-          </div>
-          <div>
-            <span className={style.selectLabel}>Genre:</span>
-            <Select
-              defaultValue="Shooter"
-              variant={"borderless"}
-              options={genreRange}
-            />
-          </div>
-          <div>
-            <span className={style.selectLabel}>Sort By:</span>
-            <Select
-              defaultValue="Relevance"
-              variant={"borderless"}
-              options={sortTypeRange}
-            />
-          </div>
-        </Space>
-
-        {/*{isLoading ?*/}
-        {/*  (*/}
-        {/*    <Flex wrap gap={16}>*/}
-        {/*      {[...Array(20)].map(() => (*/}
-        {/*        <Space style={{width: 235, height: 310, background: '#3a3f44', borderRadius: 10}} wrap>*/}
-        {/*          <Skeleton.Image active={true} style={{width: 240, height: 135}}/>*/}
-        {/*          <Skeleton.Node active={isLoading} style={{width: 120, height: 30}}/>*/}
-        {/*          {[...Array(4)].map(() => (*/}
-        {/*            <Skeleton.Node active={isLoading} style={{width: 220, height: 20}}/>*/}
-        {/*          ))}*/}
-        {/*        </Space>))}*/}
-        {/*    </Flex>*/}
-        {/*  ) : (*/}
-        <List
-          dataSource={paginationGames}
-          // pagination={{ position: "bottom", align: "start", pageSize: 20 }}
-          loading={isLoading}
-          grid={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 5 }}
-          renderItem={(game) => {
-            return (
-              <List.Item key={game.id}>
-                <GalleryCard card={game} />
-              </List.Item>
-            );
-          }}
-        />
-        <Pagination
-          current={currentPage}
-          onChange={onPageChange}
-          total={games.length}
-          // pageSize={20}
-          defaultPageSize={20}
-          showSizeChanger={true}></Pagination>
-        {/*  )*/}
-        {/*}*/}
+        <Filter></Filter>
+        <Gallery games={itemsToDisplay} />
+        {!isLoading && (
+          // <Pagination
+          //   current={currentPage}
+          //   onChange={(page) => setCurrentPage(page)}
+          //   total={games.length}
+          //   pageSize={pageSize}
+          //   defaultPageSize={20}
+          //   showSizeChanger={false}></Pagination>
+          <PaginationComponent
+            games={games}
+            onSetCardsToDisplay={setItemsToDisplay}
+          />
+        )}
       </div>
     </>
   );
 });
+
+// {/*{isLoading ?*/}
+// {/*  (*/}
+// {/*    <Flex wrap gap={16}>*/}
+// {/*      {[...Array(20)].map(() => (*/}
+// {/*        <Space style={{width: 235, height: 310, background: '#3a3f44', borderRadius: 10}} wrap>*/}
+// {/*          <Skeleton.Image active={true} style={{width: 240, height: 135}}/>*/}
+// {/*          <Skeleton.Node active={isLoading} style={{width: 120, height: 30}}/>*/}
+// {/*          {[...Array(4)].map(() => (*/}
+// {/*            <Skeleton.Node active={isLoading} style={{width: 220, height: 20}}/>*/}
+// {/*          ))}*/}
+// {/*        </Space>))}*/}
+// {/*    </Flex>*/}
+// {/*  ) : (*/}

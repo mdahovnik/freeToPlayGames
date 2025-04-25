@@ -1,15 +1,11 @@
 import style from "./detailsCard.module.css";
 import { FC, useState } from "react";
 import { Card, Carousel, Descriptions, Image, Typography } from "antd";
-import { TGameCard } from "../../../pages/gallery/type.ts";
+import { TGame } from "../../../pages/galleryPage/type.ts";
 import * as React from "react";
 import { formatDateRU } from "../../../utils/hooks.ts";
 
-type TGameCardProps = {
-  card: TGameCard;
-};
-
-export const DetailsCard: FC<TGameCardProps> = React.memo(({ card }) => {
+export const DetailsCard: FC<{ card: TGame }> = React.memo(({ card }) => {
   const { Item } = Descriptions;
   const [loaded, setLoaded] = useState(false);
   return (
@@ -64,7 +60,7 @@ export const DetailsCard: FC<TGameCardProps> = React.memo(({ card }) => {
               </Item>
             )}
           </Descriptions>
-          {card.screenshots?.length && (
+          {card.screenshots && (
             <Carousel arrows infinite={true}>
               {card.screenshots.map((item) => (
                 <Image src={item.image} />

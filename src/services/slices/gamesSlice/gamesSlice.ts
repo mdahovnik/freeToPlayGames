@@ -11,7 +11,9 @@ export const initialState: TState = {
 const gamesSlice = createSlice({
   name: "games",
   initialState,
-  reducers: {},
+  reducers: {
+    clearGames: () => initialState,
+  },
   extraReducers: (builder: ActionReducerMapBuilder<TState>) => {
     builder
       .addCase(getGames.pending, (state) => {
@@ -22,14 +24,17 @@ const gamesSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.games = payload;
+      })
+      .addCase(getGames.rejected, (state, { error }) => {
+        state.isLoading = false;
+        state.error = error.message;
       });
   },
   selectors: {
-    selectGames: (state) => state.games,
-    selectIsLoading: (state) => state.isLoading,
+    selectGames: (state) => state,
   },
 });
 
-export const { selectGames, selectIsLoading } = gamesSlice.selectors;
-
+export const { selectGames } = gamesSlice.selectors;
+export const { clearGames } = gamesSlice.actions;
 export default gamesSlice.reducer;

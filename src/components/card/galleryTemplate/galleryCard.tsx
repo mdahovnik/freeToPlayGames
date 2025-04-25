@@ -1,61 +1,70 @@
 import style from "../galleryTemplate/galleryCard.module.css";
 import { FC, useState } from "react";
-import { Card, Descriptions, Skeleton, Space, Typography } from "antd";
-import * as React from "react";
-import { TGameCard } from "../../../pages/gallery/type.ts";
+import {
+  Card,
+  Col,
+  Descriptions,
+  Row,
+  Skeleton,
+  Space,
+  Tag,
+  Typography,
+} from "antd";
+import { TGame } from "../../../pages/galleryPage/type.ts";
 import { formatDateRU } from "../../../utils/hooks.ts";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";
 
-type TGameCardProps = {
-  card: TGameCard;
-};
+// const { Item } = Descriptions;
+// const { Title, Text } = Typography;
 
-export const GalleryCard: FC<TGameCardProps> = ({ card }) => {
+export const GalleryCard: FC<{ game: TGame }> = React.memo(({ game }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigate();
-  const { Item } = Descriptions;
-  const { Text } = Typography;
 
   const onClick = (id: number) => {
     navigation(`/game/${id}`);
   };
-  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <Card
       className={style.galleryCardStyle}
-      onClick={() => onClick(card.id)}
+      onClick={() => onClick(game.id)}
       hoverable
       cover={
         <>
           <Skeleton.Image active={isLoading} className={style.coverSkeleton} />
           <img
-            alt={card.title}
-            src={card.thumbnail}
+            alt={game.title}
+            src={game.thumbnail}
             className={style.coverImage}
             loading={"lazy"}
             onLoad={() => setIsLoading(false)}
           />
         </>
       }>
-      {card.description?.length ? (
-        <Space>
-          <Skeleton.Node active style={{ width: 120, height: 30 }} />
-          {[...Array(4)].map(() => (
-            <Skeleton.Node active style={{ width: 220, height: 20 }} />
-          ))}
-        </Space>
-      ) : (
-        <Descriptions column={1} title={card.title} size={"small"}>
-          <Item label={"release"}>
-            <Text ellipsis>{formatDateRU(card.release_date)}</Text>
-          </Item>
-          <Item label={"publisher"}>
-            <Text ellipsis>{card.publisher}</Text>
-          </Item>
-          <Item label={"genre"}>
-            <Text ellipsis>{card.genre}</Text>
-          </Item>
-        </Descriptions>
-      )}
+      <DescriptionGame game={game} />
+      {/* <Descriptions column={1} title={card.title} size={"small"}>
+        <Item label={"release"}>
+          <Text ellipsis>{formatDateRU(card.release_date)}</Text>
+        </Item>
+        <Item label={"publisher"}>
+          <Text ellipsis>{card.publisher}</Text>
+        </Item>
+        <Item label={"genre"}>
+          <Text ellipsis>{card.genre}</Text>
+        </Item>
+      </Descriptions> */}
     </Card>
   );
-};
+});
+
+// {/* {card.description?.length ? ( */}
+// {/* <Space> */}
+// {/* <Skeleton.Node active style={{ width: 120, height: 30 }} />
+//     {[...Array(4)].map(() => (
+//       <Skeleton.Node active style={{ width: 220, height: 20 }} />
+//     ))} */}
+// {/* </Space> */}
+// {/* ) : ( */}

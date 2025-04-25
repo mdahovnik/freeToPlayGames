@@ -1,29 +1,29 @@
 .galleryCardStyle {
-    background-color: var(--gray-dark);
-    overflow: hidden;
-    position: relative;
-    border: none;
-    margin: 0.5rem;
-    transform: scale(1);
-    transition: all .2s ease-in-out;
+  background-color: var(--gray-dark);
+  overflow: hidden;
+  position: relative;
+  border: none;
+  margin: 0.5rem;
+  /* transform: scale(1); */
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .galleryCardStyle:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 10px 5px var(--cyan);
+  /* transform: scale(1.03); */
+  box-shadow: 0 3px 10px 2px var(--cyan);
 }
 
 .coverSkeleton {
-    position: relative;
-    aspect-ratio: 16/9;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: 100%;
 }
 
 .coverImage {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /*.cardDescription {*/
@@ -34,7 +34,6 @@
 /*    padding: 10px;*/
 /*    background: #3a3f44;*/
 /*}*/
-
 
 /*<List>*/
 /*             <VirtualList data={rows}*/

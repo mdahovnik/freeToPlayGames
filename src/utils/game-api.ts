@@ -1,37 +1,36 @@
-// import {TGameCard} from "../pages/gallery/type.ts";
+import { TGame } from "../pages/galleryPage/type";
 
-import { TGameCard } from "../pages/gallery/type.ts";
+const headers = {
+  "X-RapidAPI-Key": "cffa014724msh93a69d153bdec0ep1a261ejsn857f5e848ba6",
+  "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+};
 
-const API_GAMES_URL =
-  "https://api.allorigins.win/get?url=https://www.freetogame.com/api/games";
+const API_GAMES_URL = "https://free-to-play-games-database.p.rapidapi.com/api";
+// "https://api.allorigins.win/get?url=https://www.freetogame.com/api/games";
 
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
-type TServerResponse<T> = {
-  contents: T;
-  status: boolean;
-};
+export async function getGamesApi() {
+  const res = await fetch(`${API_GAMES_URL}/games`, {
+    headers,
+  });
+  const data = await checkResponse<TGame[]>(res);
 
-export async function getGamesApi(signal: AbortSignal) {
-  const res = await fetch(API_GAMES_URL, { signal });
-  const data = await checkResponse<TServerResponse<string>>(res);
-  if (data?.contents) {
-    return JSON.parse(data.contents) as TGameCard[];
+  if (res.ok) {
+    return data;
   }
   return Promise.reject(data);
 }
 
-// const API_GAME_DETAOLS_URL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(`https://www.freetogame.com/api/game?id=${id}`);
+export async function getGameDetails(id: string) {
+  const res = await fetch(`${API_GAMES_URL}/game?id=${id}`, {
+    headers,
+  });
+  const data = await checkResponse<TGame>(res);
 
-export async function getGameDetails(id: string, signal: AbortSignal) {
-  const res = await fetch(
-    `https://api.allorigins.win/get?url=https://www.freetogame.com/api/game?id=${id}`,
-    { signal }
-  );
-  const data = await checkResponse<TServerResponse<string>>(res);
-  if (data?.contents) {
-    return JSON.parse(data.contents) as TGameCard;
+  if (res.ok) {
+    return data;
   }
   return Promise.reject(data);
 }

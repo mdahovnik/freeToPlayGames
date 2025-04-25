@@ -2,10 +2,10 @@ import style from "../detailsTemplate/detailsCard.module.css";
 import { Card, Carousel, Descriptions, Typography, Image } from "antd";
 import { FC, useState } from "react";
 import { formatDateRU } from "../../../utils/hooks.ts";
-import { TGameCard } from "../../../pages/gallery/type.ts";
+import { TGame } from "../../../pages/galleryPage/type.ts";
 
 type TGameCardProps = {
-  card: TGameCard;
+  card: TGame;
 };
 
 export const MainCard: FC<TGameCardProps> = ({ card }) => {

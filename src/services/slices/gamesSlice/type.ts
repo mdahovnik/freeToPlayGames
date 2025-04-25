@@ -1,7 +1,7 @@
-import { TGameCard } from "../../../pages/gallery/type";
+import { TGame } from "../../../pages/galleryPage/type";
 
 export type TState = {
-  games: TGameCard[];
+  games: TGame[];
   isLoading: boolean;
-  error: string | null;
+  error: string | null | undefined;
 };

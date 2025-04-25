@@ -1,7 +1,7 @@
 type TScreenShot = {
   id: number;
   image: string;
-}
+};
 
 type TSystemReq = {
   os: string;
@@ -9,10 +9,9 @@ type TSystemReq = {
   memory: string;
   graphics: string;
   storage: string;
-}
+};
 
-
-export type TGameCard = {
+export type TGame = {
   id: number;
   title: string;
   thumbnail: string;
@@ -27,9 +26,9 @@ export type TGameCard = {
   status?: string;
   description?: string;
   minimum_system_requirements?: TSystemReq;
-  screenshots?: TScreenShot[]
-}
+  screenshots?: TScreenShot[];
+};
 
 export type TCatalog = {
-  games: TGameCard[]
-}
+  games: TGame[];
+};

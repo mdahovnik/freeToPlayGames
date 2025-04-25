@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { getGameDetails } from "../../utils/game-api.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { DetailsCard } from "../../components/card/detailsTemplate/detailsCard.tsx";
-import { TGameCard } from "../gallery/type.ts";
+import { TGame } from "../galleryPage/type.ts";
 import { PageHeader } from "@ant-design/pro-components";
 
 // type TGameDetailProps = {
@@ -12,7 +12,7 @@ import { PageHeader } from "@ant-design/pro-components";
 
 export const DetailsPage: FC = () => {
   const { id } = useParams();
-  const [gameDetails, setGameDetails] = useState<TGameCard | null>(null);
+  const [gameDetails, setGameDetails] = useState<TGame | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   // const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const DetailsPage: FC = () => {
     const fetchCardDetails = async () => {
       try {
         setIsLoading(true);
-        const gameDetails = await getGameDetails(id, signal);
+        const gameDetails = await getGameDetails(id);
         setGameDetails(gameDetails);
       } catch (err) {
         // setError(err)
