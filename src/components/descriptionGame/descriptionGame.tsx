@@ -1,6 +1,6 @@
-import { Col, Descriptions, Row, Tag, Typography } from "antd";
+import { Descriptions, Typography } from "antd";
 import { FC } from "react";
-import { TGame } from "../../pages/galleryPage/type";
+import { TGame } from "../../pages/mainPage/type";
 import { formatDateRU } from "../../utils/hooks";
 
 const { Item } = Descriptions;

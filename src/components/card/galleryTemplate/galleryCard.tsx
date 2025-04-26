@@ -1,22 +1,24 @@
 import style from "./galleryCard.module.css";
-import { FC, useState } from "react";
-import { Card } from "antd";
-import { TGame } from "../../../pages/galleryPage/type.ts";
+import { FC, memo, useState } from "react";
+import { Card, Col, Row, Tag, Typography } from "antd";
+import { TGame } from "../../../pages/mainPage/type.ts";
 import { useNavigate } from "react-router-dom";
 import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";
 
-export const GalleryCard: FC<{ game: TGame }> = ({ game }) => {
+// const { Title, Text } = Typography;
+
+export const GalleryCard: FC<{ game: TGame }> = memo(({ game }) => {
   const navigation = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
-  const onClick = () => {
+  const onCardClick = () => {
     navigation(`/game/${game.id}`);
   };
 
   return (
     <Card
       className={style.galleryCardStyle}
-      onClick={onClick}
+      onClick={onCardClick}
       hoverable
       cover={
         <img
@@ -27,8 +29,32 @@ export const GalleryCard: FC<{ game: TGame }> = ({ game }) => {
       }>
       <DescriptionGame game={game} />
     </Card>
+
+    // <Card
+    //   style={{ height: 360 }}
+    //   onClick={onClick}
+    //   hoverable
+    //   cover={<img alt={game.title} src={game.thumbnail} />}>
+    //   <Row justify="space-between">
+    //     <Col>
+    //       <Title level={4}>{game.title}</Title>
+    //     </Col>
+    //     <Col>
+    //       <Tag>{game.genre}</Tag>
+    //     </Col>
+    //   </Row>
+    //   <Row justify="space-between">
+    //     <Col>
+    //       <Text>Издатель: </Text>
+    //       <Text strong>{game.publisher}</Text>
+    //     </Col>
+    //     <Col>
+    //       <Text ellipsis>{game.release_date}</Text>
+    //     </Col>
+    //   </Row>
+    // </Card>
   );
-};
+});
 
 // <Descriptions column={1} title={game.title} size={"small"}>
 //   <Item label={"release"}>

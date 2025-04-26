@@ -44,6 +44,12 @@ export const slicedPage =
     return games.games.slice(startIndex, endIndex);
   };
 
+export const getFilteredByPlatform =
+  (platform: string) =>
+  ({ games }: RootState) => {
+    games.games.filter((game) => game.platform === platform);
+  };
+
 export const { selectGames } = gamesSlice.selectors;
 export const { clearGames } = gamesSlice.actions;
 

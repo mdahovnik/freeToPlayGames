@@ -1,9 +1,5 @@
 import style from "./filter.module.css";
-import Icon, {
-  LayoutFilled,
-  SearchOutlined,
-  WindowsFilled,
-} from "@ant-design/icons";
+import { LayoutFilled, SearchOutlined, WindowsFilled } from "@ant-design/icons";
 import { Button, Select, Space } from "antd";
 import { FC } from "react";
 
@@ -52,7 +48,7 @@ export const Filter: FC = () => {
   return (
     <Space
       size={"middle"}
-      style={{ marginTop: 90, lineHeight: "normal", alignSelf: "center" }}>
+      style={{ marginTop: 20, lineHeight: "normal", alignSelf: "center" }}>
       <div>
         <span className={style.selectLabel}>Platform:</span>
         <Select

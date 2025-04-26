@@ -1,0 +1,7 @@
+.contentDetails {
+  max-width: 1400px;
+  min-height: 840px;
+  overflow: hidden;
+  background: var(--dark);
+  color: var(--gray);
+}

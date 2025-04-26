@@ -2,7 +2,7 @@ import style from "../detailsTemplate/detailsCard.module.css";
 import { Card, Carousel, Descriptions, Typography, Image } from "antd";
 import { FC, useState } from "react";
 import { formatDateRU } from "../../../utils/hooks.ts";
-import { TGame } from "../../../pages/galleryPage/type.ts";
+import { TGame } from "../../../pages/mainPage/type.ts";
 
 type TGameCardProps = {
   card: TGame;

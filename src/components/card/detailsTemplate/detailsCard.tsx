@@ -1,77 +1,78 @@
 import style from "./detailsCard.module.css";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Card, Carousel, Descriptions, Image, Typography } from "antd";
-import { TGame } from "../../../pages/galleryPage/type.ts";
-import * as React from "react";
 import { formatDateRU } from "../../../utils/hooks.ts";
+import { useSelector } from "../../../services/store/store.ts";
+import { selectGame } from "../../../services/slices/detailsSlice/detailsSlice.ts";
 
-export const DetailsCard: FC<{ card: TGame }> = ({ card }) => {
+export const DetailsCard: FC = () => {
   const { Item } = Descriptions;
-  const [loaded, setLoaded] = useState(false);
+  const { game } = useSelector(selectGame);
+
   return (
     <>
       {/* <Skeleton loading={loaded} active paragraph={{rows:8, width: '30%'}}> */}
-
-      <Card className={style.detailCardStyle}>
-        <Card.Grid hoverable={false} className={style.poster}>
-          <Typography.Title level={2} style={{ textAlign: "start" }}>
-            {card.title}
-          </Typography.Title>
-          <img
-            alt={card.title}
-            loading={"lazy"}
-            onLoad={() => setLoaded(true)}
-            src={card.thumbnail}
-            style={{ width: "100%", borderRadius: "5px" }}
-          />
-          {card.minimum_system_requirements && (
+      {game && (
+        <Card className={style.detailCardStyle}>
+          <Card.Grid hoverable={false} className={style.poster}>
+            <Typography.Title level={2} style={{ textAlign: "start" }}>
+              {game.title}
+            </Typography.Title>
+            <img
+              alt={game.title}
+              loading={"lazy"}
+              src={game.thumbnail}
+              style={{ width: "100%", borderRadius: "5px" }}
+            />
+            {game.minimum_system_requirements && (
+              <Descriptions
+                column={1}
+                className={style.cardDescription}
+                size={"small"}>
+                {Object.entries(game.minimum_system_requirements).map(
+                  ([key, value]) => (
+                    <Item
+                      label={key}
+                      styles={{ content: { textAlign: "start" } }}>
+                      {value}
+                    </Item>
+                  )
+                )}
+              </Descriptions>
+            )}
+          </Card.Grid>
+          {/*<Divider variant={'solid'}></Divider>*/}
+          <Card.Grid hoverable={false} className={style.screenShorts}>
             <Descriptions
               column={1}
               className={style.cardDescription}
               size={"small"}>
-              {Object.entries(card.minimum_system_requirements).map(
-                ([key, value]) => (
-                  <Item
-                    label={key}
-                    styles={{ content: { textAlign: "start" } }}>
-                    {value}
-                  </Item>
-                )
+              <Item label={"release"}>{formatDateRU(game.release_date)}</Item>
+              <Item label={"publisher"}>{game.publisher}</Item>
+              <Item label={"genre"}>{game.genre}</Item>
+              <Item label={"developer"}>{game.developer}</Item>
+              <Item label={"status"}>{game.status}</Item>
+              {game.description?.length && (
+                <Item
+                  label={"description"}
+                  styles={{ content: { textAlign: "start" } }}>
+                  <Typography.Paragraph
+                    ellipsis={{ rows: 3, expandable: true, symbol: "More" }}>
+                    {game.description}
+                  </Typography.Paragraph>
+                </Item>
               )}
             </Descriptions>
-          )}
-        </Card.Grid>
-        {/*<Divider variant={'solid'}></Divider>*/}
-        <Card.Grid hoverable={false} className={style.screenShorts}>
-          <Descriptions
-            column={1}
-            className={style.cardDescription}
-            size={"small"}>
-            <Item label={"release"}>{formatDateRU(card.release_date)}</Item>
-            <Item label={"publisher"}>{card.publisher}</Item>
-            <Item label={"genre"}>{card.genre}</Item>
-            <Item label={"developer"}>{card.developer}</Item>
-            <Item label={"status"}>{card.status}</Item>
-            {card.description?.length && (
-              <Item
-                label={"description"}
-                styles={{ content: { textAlign: "start" } }}>
-                <Typography.Paragraph
-                  ellipsis={{ rows: 3, expandable: true, symbol: "More" }}>
-                  {card.description}
-                </Typography.Paragraph>
-              </Item>
+            {game.screenshots && (
+              <Carousel arrows infinite={true}>
+                {game.screenshots.map((item) => (
+                  <Image src={item.image} />
+                ))}
+              </Carousel>
             )}
-          </Descriptions>
-          {card.screenshots && (
-            <Carousel arrows infinite={true}>
-              {card.screenshots.map((item) => (
-                <Image src={item.image} />
-              ))}
-            </Carousel>
-          )}
-        </Card.Grid>
-      </Card>
+          </Card.Grid>
+        </Card>
+      )}
       {/* </Skeleton> */}
     </>
   );

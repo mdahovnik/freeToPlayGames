@@ -1,54 +1,44 @@
-import { Spin } from "antd";
-import { FC, useEffect, useState } from "react";
-import { getGameDetails } from "../../utils/game-api.ts";
+import style from "./detailsPage.module.css";
+import { Layout, Spin } from "antd";
+import { FC, ReactElement, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DetailsCard } from "../../components/card/detailsTemplate/detailsCard.tsx";
-import { TGame } from "../galleryPage/type.ts";
 import { PageHeader } from "@ant-design/pro-components";
+import { useDispatch, useSelector } from "../../services/store/store.ts";
+import { selectGame } from "../../services/slices/detailsSlice/detailsSlice.ts";
+import { getDetailsThunk } from "../../services/slices/detailsSlice/details-thunk.ts";
 
-// type TGameDetailProps = {
-//   children: string
-// }
+const { Content } = Layout;
 
-export const DetailsPage: FC = () => {
+export const DetailsPage: FC<{ children: ReactElement }> = ({ children }) => {
   const { id } = useParams();
-  const [gameDetails, setGameDetails] = useState<TGame | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector(selectGame);
+
+  const onBack = () => navigate("/");
+
   useEffect(() => {
     if (!id) return;
+    // const abortController = new AbortController();
+    // const { signal } = abortController;
 
-    const abortController = new AbortController();
-    const { signal } = abortController;
-    const fetchCardDetails = async () => {
-      try {
-        setIsLoading(true);
-        const gameDetails = await getGameDetails(id);
-        setGameDetails(gameDetails);
-      } catch (err) {
-        // setError(err)
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchCardDetails().then(() => console.log("fetchCardDetails success"));
+    const promise = dispatch(getDetailsThunk(id));
 
     return () => {
-      console.log("abortController.abort");
-      abortController.abort();
+      // abortController.abort();
+      promise.abort();
+      console.log("getDetailsThunk-abortController.abort");
     };
   }, [id]);
 
   if (isLoading) {
     return <Spin size={"large"} tip="Data loading..."></Spin>;
   }
-  const onBack = () => navigate("/");
+
   return (
-    <div>
+    <>
       <PageHeader title={"Game Details"} onBack={onBack} />
-      {gameDetails && <DetailsCard card={gameDetails} />}
-    </div>
+      <Content className={style.contentDetails}>{children}</Content>
+    </>
   );
 };

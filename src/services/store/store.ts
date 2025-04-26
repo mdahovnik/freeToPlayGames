@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import gamesReducer from "../slices/gamesSlice/gamesSlice";
+import detailsReducer from "../slices/detailsSlice/detailsSlice";
 
 import {
   TypedUseSelectorHook,
@@ -10,6 +11,7 @@ import {
 const store = configureStore({
   reducer: {
     games: gamesReducer,
+    details: detailsReducer,
   },
 });
 
