@@ -1,6 +1,10 @@
 import style from "./filter.module.css";
-import { LayoutFilled, WindowsFilled } from "@ant-design/icons";
-import { Select, Space } from "antd";
+import Icon, {
+  LayoutFilled,
+  SearchOutlined,
+  WindowsFilled,
+} from "@ant-design/icons";
+import { Button, Select, Space } from "antd";
 import { FC } from "react";
 
 const genreRange = [
@@ -74,6 +78,9 @@ export const Filter: FC = () => {
           options={sortTypeRange}
         />
       </div>
+      <Button color="default" variant="text" icon={<SearchOutlined />}>
+        apply filters
+      </Button>
     </Space>
   );
 };

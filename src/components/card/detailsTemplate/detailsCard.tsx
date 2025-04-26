@@ -5,7 +5,7 @@ import { TGame } from "../../../pages/galleryPage/type.ts";
 import * as React from "react";
 import { formatDateRU } from "../../../utils/hooks.ts";
 
-export const DetailsCard: FC<{ card: TGame }> = React.memo(({ card }) => {
+export const DetailsCard: FC<{ card: TGame }> = ({ card }) => {
   const { Item } = Descriptions;
   const [loaded, setLoaded] = useState(false);
   return (
@@ -56,7 +56,10 @@ export const DetailsCard: FC<{ card: TGame }> = React.memo(({ card }) => {
               <Item
                 label={"description"}
                 styles={{ content: { textAlign: "start" } }}>
-                {card.description}
+                <Typography.Paragraph
+                  ellipsis={{ rows: 3, expandable: true, symbol: "More" }}>
+                  {card.description}
+                </Typography.Paragraph>
               </Item>
             )}
           </Descriptions>
@@ -72,7 +75,7 @@ export const DetailsCard: FC<{ card: TGame }> = React.memo(({ card }) => {
       {/* </Skeleton> */}
     </>
   );
-});
+};
 
 // style={{
 //   position: 'absolute',

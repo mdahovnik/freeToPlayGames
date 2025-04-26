@@ -50,7 +50,7 @@ body {
 }
 
 .content {
-  max-width: 1400px;
+  max-width: 1280px;
   min-height: 100%;
   overflow: hidden;
   /*line-height: 60px;*/
@@ -153,6 +153,53 @@ h2.ant-typography {
   height: 100%;
 }
 
+.ant-pagination .ant-pagination-item {
+  background-color: transparent;
+}
+
+.ant-pagination .ant-pagination-item a {
+  color: var(--cyan) !important;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  border-color: var(--cyan) !important;
+}
+
+.ant-pagination
+  .ant-pagination-jump-next
+  .ant-pagination-item-container
+  .ant-pagination-item-ellipsis {
+  color: var(--cyan);
+}
+
+.ant-pagination
+  .ant-pagination-jump-next
+  .ant-pagination-item-container
+  .ant-pagination-item-ellipsis {
+  color: var(--cyan);
+}
+
+.ant-btn-variant-text {
+  color: var(--gray);
+}
+
+.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled) {
+  outline: none;
+}
+
+.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):active {
+  color: var(--light);
+  box-shadow: 0 1px 0 1px var(--cyan);
+}
+
+.ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):hover {
+  color: var(--light);
+  border: 1px solid var(--gray-dark);
+  /* box-shadow: 0 2px 2px 1px var(--cyan); */
+}
+.ant-btn-variant-text:hover {
+  color: var(--red);
+}
 .layout {
   min-height: 100vh;
 }

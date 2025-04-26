@@ -1,64 +1,70 @@
-import style from "../galleryTemplate/galleryCard.module.css";
+import style from "./galleryCard.module.css";
 import { FC, useState } from "react";
-import {
-  Card,
-  Col,
-  Descriptions,
-  Row,
-  Skeleton,
-  Space,
-  Tag,
-  Typography,
-} from "antd";
+import { Card } from "antd";
 import { TGame } from "../../../pages/galleryPage/type.ts";
-import { formatDateRU } from "../../../utils/hooks.ts";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";
 
-// const { Item } = Descriptions;
-// const { Title, Text } = Typography;
-
-export const GalleryCard: FC<{ game: TGame }> = React.memo(({ game }) => {
-  const [isLoading, setIsLoading] = useState(true);
+export const GalleryCard: FC<{ game: TGame }> = ({ game }) => {
   const navigation = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const onClick = (id: number) => {
-    navigation(`/game/${id}`);
+  const onClick = () => {
+    navigation(`/game/${game.id}`);
   };
 
   return (
     <Card
       className={style.galleryCardStyle}
-      onClick={() => onClick(game.id)}
+      onClick={onClick}
       hoverable
       cover={
-        <>
-          <Skeleton.Image active={isLoading} className={style.coverSkeleton} />
-          <img
-            alt={game.title}
-            src={game.thumbnail}
-            className={style.coverImage}
-            loading={"lazy"}
-            onLoad={() => setIsLoading(false)}
-          />
-        </>
+        <img
+          alt={game.title}
+          src={game.thumbnail}
+          onLoad={() => setIsLoading(false)}
+        />
       }>
       <DescriptionGame game={game} />
-      {/* <Descriptions column={1} title={card.title} size={"small"}>
-        <Item label={"release"}>
-          <Text ellipsis>{formatDateRU(card.release_date)}</Text>
-        </Item>
-        <Item label={"publisher"}>
-          <Text ellipsis>{card.publisher}</Text>
-        </Item>
-        <Item label={"genre"}>
-          <Text ellipsis>{card.genre}</Text>
-        </Item>
-      </Descriptions> */}
     </Card>
   );
-});
+};
+
+// <Descriptions column={1} title={game.title} size={"small"}>
+//   <Item label={"release"}>
+//     <Text ellipsis>{formatDateRU(game.release_date)}</Text>
+//   </Item>
+//   <Item label={"publisher"}>
+//     <Text ellipsis>{game.publisher}</Text>
+//   </Item>
+//   <Item label={"genre"}>
+//     <Text ellipsis>{game.genre}</Text>
+//   </Item>
+// </Descriptions>
+
+// <Card
+//   style={{ height: 360 }}
+//   onClick={onClick}
+//   hoverable
+//   cover={<img alt={game.title} src={game.thumbnail} />}>
+//   <Row justify="space-between">
+//     <Col>
+//       <Title level={4}>{game.title}</Title>
+//     </Col>
+//     <Col>
+//       <Tag>{game.genre}</Tag>
+//     </Col>
+//   </Row>
+//   <Row justify="space-between">
+//     <Col>
+//       <Text>Издатель: </Text>
+//       <Text strong>{game.publisher}</Text>
+//     </Col>
+//     <Col>
+//       <Text ellipsis>{game.release_date}</Text>
+//     </Col>
+//   </Row>
+// </Card>
 
 // {/* {card.description?.length ? ( */}
 // {/* <Space> */}
@@ -68,3 +74,5 @@ export const GalleryCard: FC<{ game: TGame }> = React.memo(({ game }) => {
 //     ))} */}
 // {/* </Space> */}
 // {/* ) : ( */}
+
+//formatDateRU(game.release_date)

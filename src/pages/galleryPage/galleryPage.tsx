@@ -1,19 +1,9 @@
 import style from "./gallery.module.css";
-import { List, Pagination, PaginationProps, Select, Space } from "antd";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { FC, useState } from "react";
 import Title from "antd/es/typography/Title";
 import { Header } from "antd/es/layout/layout";
-import { LayoutFilled, WindowsFilled } from "@ant-design/icons";
-import { GalleryCard } from "../../components/card/galleryTemplate/galleryCard.tsx";
-import { useDispatch, useSelector } from "../../services/store/store.ts";
-import { getGames } from "../../services/slices/gamesSlice/games-thunk.ts";
-import {
-  clearGames,
-  selectGames,
-} from "../../services/slices/gamesSlice/gamesSlice.ts";
-import { getGamesApi } from "../../utils/game-api.ts";
+import { useSelector } from "../../services/store/store.ts";
+import { selectGames } from "../../services/slices/gamesSlice/gamesSlice.ts";
 import { TGame } from "./type.ts";
 import { PaginationComponent } from "../../components/pagination/paginationComponent.tsx";
 import { Filter } from "../../components/filter/filter.tsx";
@@ -394,44 +384,9 @@ import { Gallery } from "../../components/gallery/gallery.tsx";
 //   { value: "Alphabetical", label: "Alphabetical" },
 // ];
 
-export const GalleryPage: FC = React.memo(() => {
-  // const containerRef = useRef<HTMLDivElement>(null);
-  // const [gamesList, setGamesList] = useState<TGame[]>([]);
-  const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
-
+export const GalleryPage: FC = () => {
   const { games, error, isLoading } = useSelector(selectGames);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-    dispatch(getGames());
-    return () => {
-      abortController.abort();
-      // dispatch(clearGames());
-    };
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   // setCurrentPage(1);
-  //   setGamesList(games);
-  // }, [games]);
-
-  const startIndex = (currentPage - 1) * pageSize;
-
-  useEffect(() => {
-    setItemsToDisplay(games.slice(startIndex, startIndex + pageSize));
-  }, [startIndex, currentPage]);
-
-  // const paginationGames = useMemo(() => {
-  //   console.log("paginationGames = useMemo");
-  //   return games.slice(startIndex, startIndex + pageSize);
-  // }, [games, startIndex, pageSize]);
-  // const onPageChange: PaginationProps["onChange"] = (page) => {
-  //   setCurrentPage(page);
-  // };
+  const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
 
   if (error) {
     return <ErrorMessage />;
@@ -439,29 +394,18 @@ export const GalleryPage: FC = React.memo(() => {
 
   return (
     <>
-      <div>
-        <Header className={style.headerStyle}>
-          <Title className={style.catalogWrapper}>Free To Play Games</Title>
-        </Header>
-        <Filter></Filter>
-        <Gallery games={itemsToDisplay} />
-        {!isLoading && (
-          // <Pagination
-          //   current={currentPage}
-          //   onChange={(page) => setCurrentPage(page)}
-          //   total={games.length}
-          //   pageSize={pageSize}
-          //   defaultPageSize={20}
-          //   showSizeChanger={false}></Pagination>
-          <PaginationComponent
-            games={games}
-            onSetCardsToDisplay={setItemsToDisplay}
-          />
-        )}
-      </div>
+      <Header className={style.headerStyle}>
+        <Title className={style.catalogWrapper}>Free To Play Games</Title>
+      </Header>
+      <Filter></Filter>
+      <Gallery games={itemsToDisplay} />
+      <PaginationComponent
+        total={games.length}
+        onSetCardsToDisplay={setItemsToDisplay}
+      />
     </>
   );
-});
+};
 
 // {/*{isLoading ?*/}
 // {/*  (*/}

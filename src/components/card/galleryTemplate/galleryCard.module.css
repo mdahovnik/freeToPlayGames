@@ -13,18 +13,19 @@
   box-shadow: 0 3px 10px 2px var(--cyan);
 }
 
-.coverSkeleton {
+/* .coverImage {
   position: relative;
   aspect-ratio: 16/9;
   width: 100%;
   height: 100%;
-}
+} */
 
+/*
 .coverImage {
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 
 /*.cardDescription {*/
 /*    color: var(--red);*/
@@ -34,24 +35,3 @@
 /*    padding: 10px;*/
 /*    background: #3a3f44;*/
 /*}*/
-
-/*<List>*/
-/*             <VirtualList data={rows}*/
-/*                          height={height}*/
-/*                          itemKey={'id'}*/
-/*                          itemHeight={200}>*/
-/*               {(game) => {*/
-/*                 return (*/
-/*                   <List.Item key={game.id}>*/
-/*                     <Link to={`/game/${game.id}`}*/
-/*                           onClick={() => {*/
-/*                             console.log('click')*/
-/*                           }}>*/
-/*                       <GameCard card={game}/>*/
-/*                     </Link>*/
-/*                   </List.Item>*/
-/*                 )*/
-/*               }}*/
-
-/*             </VirtualList>*/
-/*           </List>*/
