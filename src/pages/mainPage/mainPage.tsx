@@ -5,9 +5,10 @@ import { useSelector } from "../../services/store/store.ts";
 import { selectGames } from "../../services/slices/gamesSlice/gamesSlice.ts";
 import { Filter } from "../../components/filter/filter.tsx";
 import { ErrorMessage } from "../../components/error/errorMessage.tsx";
-import { Layout } from "antd";
+import { Layout, Space } from "antd";
+import { GithubOutlined, LinkedinFilled } from "@ant-design/icons";
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 export const MainPage: FC<{ children: ReactElement }> = ({ children }) => {
   const { error } = useSelector(selectGames);
@@ -23,6 +24,12 @@ export const MainPage: FC<{ children: ReactElement }> = ({ children }) => {
         <Filter></Filter>
       </Header>
       <Content className={"content"}>{children}</Content>
+      <Footer>
+        <Space>
+          Ant Design ©{new Date().getFullYear()} Created by Maksim Dakhovnik
+          <GithubOutlined />
+        </Space>
+      </Footer>
     </Layout>
   );
 };

@@ -185,6 +185,12 @@ h2.ant-typography {
   color: var(--cyan);
 }
 
+.ant-layout-footer {
+  text-align: "center";
+  color: var(--light);
+  background-color: var(--dark);
+}
+
 .ant-btn-variant-text {
   color: var(--gray);
 }
