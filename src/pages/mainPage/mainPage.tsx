@@ -21,8 +21,8 @@ export const MainPage: FC<{ children: ReactElement }> = ({ children }) => {
     <Layout className="layout">
       <Header className={style.headerStyle}>
         <Title className={style.catalogWrapper}>Free To Play Games</Title>
-        <Filter></Filter>
       </Header>
+      <Filter></Filter>
       <Content className={"content"}>{children}</Content>
       <Footer>
         <Space>
