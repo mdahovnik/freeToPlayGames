@@ -6,7 +6,7 @@ import { selectGames } from "../../services/slices/gamesSlice/gamesSlice.ts";
 import { Filter } from "../../components/filter/filter.tsx";
 import { ErrorMessage } from "../../components/error/errorMessage.tsx";
 import { Layout, Space } from "antd";
-import { GithubOutlined, LinkedinFilled } from "@ant-design/icons";
+import { GithubOutlined } from "@ant-design/icons";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,8 +21,8 @@ export const MainPage: FC<{ children: ReactElement }> = ({ children }) => {
     <Layout className="layout">
       <Header className={style.headerStyle}>
         <Title className={style.catalogWrapper}>Free To Play Games</Title>
-        <Filter></Filter>
       </Header>
+      <Filter></Filter>
       <Content className={"content"}>{children}</Content>
       <Footer>
         <Space>
