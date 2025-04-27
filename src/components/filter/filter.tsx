@@ -48,7 +48,7 @@ export const Filter: FC = () => {
   return (
     <Space
       size={"middle"}
-      style={{ marginTop: 20, lineHeight: "normal", alignSelf: "center" }}>
+      style={{ marginTop: 100, lineHeight: "normal", alignSelf: "center" }}>
       <div>
         <span className={style.selectLabel}>Platform:</span>
         <Select
