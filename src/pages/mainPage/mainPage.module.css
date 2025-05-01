@@ -8,6 +8,7 @@
   height: 80px;
   /*line-height: 64px;*/
   background-color: var(--dark);
+  text-shadow: 0 0 15px var(--cyan);
 }
 
 /*.catalogWrapper {*/
