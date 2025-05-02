@@ -2,6 +2,6 @@
   max-width: 1400px;
   min-height: 840px;
   overflow: hidden;
-  background: var(--dark);
-  color: var(--gray);
+  background: var(--background) !important;
+  color: var(--foreground) !important;
 }
