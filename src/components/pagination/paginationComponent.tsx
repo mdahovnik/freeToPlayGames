@@ -1,29 +1,38 @@
 import { Pagination, PaginationProps } from "antd";
-import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { TGame } from "../../pages/mainPage/type";
-import { useSelector } from "react-redux";
-import { slicedPage } from "../../services/slices/gamesSlice/gamesSlice";
+import { FC} from "react";
+import {useDispatch} from "../../services/store/store.ts";
+import { useSelector } from "../../services/store/store.ts";
+import {
+  selectCurrentPage,
+  selectPageSize,
+  setCurrentPage,
+  setPageSize
+} from "../../services/slices/paginationSlice/paginationSlice.ts";
 
 type TPaginationComponent = {
   total: number;
-  onSetCardsToDisplay: Dispatch<SetStateAction<TGame[]>>;
 };
 
 export const PaginationComponent: FC<TPaginationComponent> = ({
-  total,
-  onSetCardsToDisplay,
+  total
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(15);
-  const itemsToDisplay = useSelector(slicedPage(currentPage, pageSize));
+  const dispatch = useDispatch();
+  const currentPage = useSelector(selectCurrentPage);
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [pageSize, setPageSize] = useState(15);
+  dispatch(setPageSize(15));
+  const pageSize = useSelector(selectPageSize);
+  // const itemsToDisplay = useSelector(slicedPage(currentPage, pageSize));
 
   const onPageChange: PaginationProps["onChange"] = (page) => {
-    setCurrentPage(page);
+    // setCurrentPage(page);
+    dispatch(setCurrentPage(page))
   };
 
-  useEffect(() => {
-    onSetCardsToDisplay(itemsToDisplay);
-  }, [currentPage, total]);
+  // useEffect(() => {
+  //   onSetCardsToDisplay(itemsToDisplay);
+  // }, [currentPage, total]);
 
   //   useEffect(() => {
   //     setCurrentPage(1);

@@ -1,6 +1,6 @@
 import style from "./galleryCard.module.css";
 import { FC, memo, useState } from "react";
-import { Card, Col, Row, Tag, Typography } from "antd";
+import { Card} from "antd";
 import { TGame } from "../../../pages/mainPage/type.ts";
 import { useNavigate } from "react-router-dom";
 import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";

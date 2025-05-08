@@ -1,13 +1,16 @@
 import { List } from "antd";
-import { FC, useState } from "react";
+import { FC} from "react";
 import { GalleryCard } from "../card/galleryTemplate/galleryCard";
-import { TGame } from "../../pages/mainPage/type";
 import { PaginationComponent } from "../pagination/paginationComponent";
-import { useSelector } from "react-redux";
-import { selectGames } from "../../services/slices/gamesSlice/gamesSlice";
+import {selectGames, selectSlicedPage} from "../../services/slices/gamesSlice/gamesSlice";
+import {useSelector} from "../../services/store/store.ts";
+import {selectCurrentPage, selectPageSize} from "../../services/slices/paginationSlice/paginationSlice.ts";
 
 export const Gallery: FC = () => {
-  const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
+  // const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
+  const currentPage = useSelector(selectCurrentPage);
+  const pageSize = useSelector(selectPageSize);
+   const itemsToDisplay = useSelector(selectSlicedPage(currentPage, pageSize));
   const { games, isLoading } = useSelector(selectGames);
 
   return (
@@ -21,10 +24,7 @@ export const Gallery: FC = () => {
           </List.Item>
         )}
       />
-      <PaginationComponent
-        total={games.length}
-        onSetCardsToDisplay={setItemsToDisplay}
-      />
+      <PaginationComponent total={games.length}/>
     </>
   );
 };
