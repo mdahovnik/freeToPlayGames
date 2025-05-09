@@ -9,7 +9,6 @@ import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";
 
 export const GalleryCard: FC<{ game: TGame }> = memo(({ game }) => {
   const navigation = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
 
   const onCardClick = () => {
     navigation(`/game/${game.id}`);
@@ -24,7 +23,7 @@ export const GalleryCard: FC<{ game: TGame }> = memo(({ game }) => {
         <img
           alt={game.title}
           src={game.thumbnail}
-          onLoad={() => setIsLoading(false)}
+          loading={"lazy"}
         />
       }>
       <DescriptionGame game={game} />
