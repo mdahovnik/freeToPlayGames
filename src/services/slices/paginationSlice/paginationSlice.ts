@@ -29,7 +29,7 @@ const paginationSlice = createSlice({
   },
   selectors: {
     selectCurrentPage: (state) => state.currentPage,
-    selectPageSize: (state) => state.currentPage
+    selectPageSize: (state) => state.pageSize
   }
 })
 

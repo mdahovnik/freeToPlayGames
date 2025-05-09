@@ -18,21 +18,22 @@ export const PaginationComponent: FC<TPaginationComponent> = ({
 }) => {
   const dispatch = useDispatch();
   const currentPage = useSelector(selectCurrentPage);
+  // useEffect(() => {
+  //   onSetCardsToDisplay(itemsToDisplay);
+  // }, [currentPage, total]);
 
   // const [currentPage, setCurrentPage] = useState(1);
   // const [pageSize, setPageSize] = useState(15);
-  dispatch(setPageSize(15));
+  dispatch(setPageSize(20));
   const pageSize = useSelector(selectPageSize);
   // const itemsToDisplay = useSelector(slicedPage(currentPage, pageSize));
 
   const onPageChange: PaginationProps["onChange"] = (page) => {
     // setCurrentPage(page);
     dispatch(setCurrentPage(page))
+    console.log("setCurrentPage:", page)
   };
 
-  // useEffect(() => {
-  //   onSetCardsToDisplay(itemsToDisplay);
-  // }, [currentPage, total]);
 
   //   useEffect(() => {
   //     setCurrentPage(1);
