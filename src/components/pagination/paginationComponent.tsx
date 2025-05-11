@@ -1,51 +1,30 @@
-import { Pagination, PaginationProps } from "antd";
-import { FC} from "react";
-import {useDispatch} from "../../services/store/store.ts";
-import { useSelector } from "../../services/store/store.ts";
+import {Pagination, PaginationProps} from "antd";
+import {useDispatch, useSelector} from "../../services/store/store.ts";
 import {
   selectCurrentPage,
   selectPageSize,
   setCurrentPage,
-  setPageSize
 } from "../../services/slices/paginationSlice/paginationSlice.ts";
+import {selectGames} from "../../services/slices/gamesSlice/gamesSlice.ts";
 
-type TPaginationComponent = {
-  total: number;
-};
-
-export const PaginationComponent: FC<TPaginationComponent> = ({
-  total
-}) => {
+export const PaginationComponent = () => {
   const dispatch = useDispatch();
-  const currentPage = useSelector(selectCurrentPage);
-  // useEffect(() => {
-  //   onSetCardsToDisplay(itemsToDisplay);
-  // }, [currentPage, total]);
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [pageSize, setPageSize] = useState(15);
-  dispatch(setPageSize(20));
+  const currentPage = useSelector(selectCurrentPage);
+  const {games} = useSelector(selectGames);
   const pageSize = useSelector(selectPageSize);
-  // const itemsToDisplay = useSelector(slicedPage(currentPage, pageSize));
 
   const onPageChange: PaginationProps["onChange"] = (page) => {
-    // setCurrentPage(page);
     dispatch(setCurrentPage(page))
-    console.log("setCurrentPage:", page)
   };
-
-
-  //   useEffect(() => {
-  //     setCurrentPage(1);
-  //   }, [games]);
 
   return (
     <Pagination
       current={currentPage}
       onChange={onPageChange}
-      total={total}
+      total={games.length}
       pageSize={pageSize}
       defaultPageSize={20}
-      showSizeChanger={false}></Pagination>
+      showSizeChanger={false}/>
   );
 };

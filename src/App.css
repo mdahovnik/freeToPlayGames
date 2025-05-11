@@ -132,8 +132,8 @@ h2.ant-typography {
 
 .ant-layout-footer {
   text-align: center;
-  color: var(--light);
-  background-color: var(--dark);
+  color: var(--foreground);
+  background-color: var(--background);
 }
 
 .ant-btn-variant-text {

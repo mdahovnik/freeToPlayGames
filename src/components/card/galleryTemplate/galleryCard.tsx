@@ -1,13 +1,13 @@
 import style from "./galleryCard.module.css";
-import { FC, memo, useState } from "react";
-import { Card} from "antd";
-import { TGame } from "../../../pages/mainPage/type.ts";
-import { useNavigate } from "react-router-dom";
-import { DescriptionGame } from "../../descriptionGame/descriptionGame.tsx";
+import {FC, memo} from "react";
+import {Card} from "antd";
+import {TGame} from "../../../pages/mainPage/type.ts";
+import {useNavigate} from "react-router-dom";
+import {DescriptionGame} from "../../descriptionGame/descriptionGame.tsx";
 
 // const { Title, Text } = Typography;
 
-export const GalleryCard: FC<{ game: TGame }> = memo(({ game }) => {
+export const GalleryCard: FC<{ game: TGame }> = memo(({game}) => {
   const navigation = useNavigate();
 
   const onCardClick = () => {
@@ -26,7 +26,7 @@ export const GalleryCard: FC<{ game: TGame }> = memo(({ game }) => {
           loading={"lazy"}
         />
       }>
-      <DescriptionGame game={game} />
+      <DescriptionGame game={game}/>
     </Card>
 
     // <Card

@@ -7,13 +7,10 @@ import {useSelector} from "../../services/store/store.ts";
 import {selectCurrentPage, selectPageSize} from "../../services/slices/paginationSlice/paginationSlice.ts";
 
 export const Gallery: FC = () => {
-  // const [itemsToDisplay, setItemsToDisplay] = useState<TGame[]>([]);
   const currentPage = useSelector(selectCurrentPage);
   const pageSize = useSelector(selectPageSize);
-  console.log("currentPage:", currentPage, "pageSize:", pageSize)
   const itemsToDisplay = useSelector(selectSlicedPage(currentPage, pageSize));
-  console.log("itemsToDisplay:", itemsToDisplay)
-  const {games, isLoading} = useSelector(selectGames);
+  const {isLoading} = useSelector(selectGames);
 
   return (
     <>
@@ -27,7 +24,7 @@ export const Gallery: FC = () => {
           </List.Item>
         )}
       />
-      <PaginationComponent total={games.length}/>
+      <PaginationComponent/>
     </>
   );
 };
