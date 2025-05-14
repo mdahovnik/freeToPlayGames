@@ -77,7 +77,7 @@ h2.ant-typography {
 }
 
 .ant-descriptions-item-content {
-  color: var(--light) !important;
+  color: var(--foreground) !important;
 }
 
 .ant-typography {

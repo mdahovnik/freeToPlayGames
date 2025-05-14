@@ -29,7 +29,7 @@ export const DetailsPage: FC<{ children: ReactElement }> = ({ children }) => {
       promise.abort();
       console.log("getDetailsThunk-abortController.abort");
     };
-  }, [id]);
+  }, [id, dispatch]);
 
   if (isLoading) {
     return <Spin size={"large"} tip="Data loading..."></Spin>;
