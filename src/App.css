@@ -2,7 +2,6 @@
   max-width: 1400px;
   min-height: 100%;
   overflow: hidden;
-  /*line-height: 60px;*/
   background: var(--background);
   color: var(--gray);
   margin-top: 20px;
@@ -61,11 +60,6 @@ h2.ant-typography {
   box-shadow: none;
 }
 
-.ant-descriptions {
-  /* overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; */
-}
 .ant-descriptions-small .ant-descriptions-row > td {
   padding-bottom: 0.2rem;
 }
@@ -91,10 +85,6 @@ h2.ant-typography {
 .ant-spin {
   background: var(--dark);
 }
-
-/*.ant-row {*/
-/*    align-items: stretch;*/
-/*}*/
 
 .ant-list-item {
   height: 100%;
@@ -152,7 +142,6 @@ h2.ant-typography {
 .ant-btn-variant-text:not(:disabled):not(.ant-btn-disabled):hover {
   color: var(--light);
   border: 1px solid var(--gray-dark);
-  /* box-shadow: 0 2px 2px 1px var(--cyan); */
 }
 
 .ant-btn-variant-text:hover {

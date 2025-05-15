@@ -19,13 +19,10 @@ export const DetailsPage: FC<{ children: ReactElement }> = ({ children }) => {
 
   useEffect(() => {
     if (!id) return;
-    // const abortController = new AbortController();
-    // const { signal } = abortController;
 
     const promise = dispatch(getDetailsThunk(id));
 
     return () => {
-      // abortController.abort();
       promise.abort();
       console.log("getDetailsThunk-abortController.abort");
     };

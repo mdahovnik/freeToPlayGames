@@ -12,15 +12,11 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-
     const promise = dispatch(getGames());
 
     return () => {
       promise.abort();
       console.log("getGames-abortController.abort");
-      // dispatch(clearGames());
     };
   }, [dispatch]);
 
