@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getGameDetails } from "../../../utils/game-api";
+import { getGameDetails } from "../../../../utils/game-api.ts";
 
 export const getDetailsThunk = createAsyncThunk(
   "details/fetchDetails",

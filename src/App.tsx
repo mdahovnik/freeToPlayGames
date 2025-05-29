@@ -4,7 +4,7 @@ import { DetailsPage } from "./pages/detailsPage/detailsPage.tsx";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "./services/store/store.ts";
-import { getGames } from "./services/slices/gamesSlice/games-thunk.ts";
+import { getGames } from "./services/slices/gamesSlice/thunks/games-thunk.ts";
 import { Gallery } from "./components/gallery/gallery.tsx";
 import { DetailsCard } from "./components/card/detailsTemplate/detailsCard.tsx";
 

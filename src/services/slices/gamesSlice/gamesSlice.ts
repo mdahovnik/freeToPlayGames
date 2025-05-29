@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { TState } from "./type";
-import { getGames } from "./games-thunk";
+import { getGames } from "./thunks/games-thunk.ts";
 import { RootState } from "../../store/store";
 
 export const initialState: TState = {

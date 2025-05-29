@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PageHeader } from "@ant-design/pro-components";
 import { useDispatch, useSelector } from "../../services/store/store.ts";
 import { selectGame } from "../../services/slices/detailsSlice/detailsSlice.ts";
-import { getDetailsThunk } from "../../services/slices/detailsSlice/details-thunk.ts";
+import { getDetailsThunk } from "../../services/slices/detailsSlice/thunks/details-thunk.ts";
 
 const { Content } = Layout;
 
