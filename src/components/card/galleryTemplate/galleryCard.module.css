@@ -1,16 +1,22 @@
 .galleryCardStyle {
-  background-color: var(--gray-dark);
-  overflow: hidden;
-  position: relative;
-  border: none;
-  margin: 0.5rem;
-  /* transform: scale(1); */
-  transition: box-shadow 0.2s ease-in-out;
+    background-color: var(--light);
+    overflow: hidden;
+    position: relative;
+    border: none;
+    margin: 0.5rem;
+    /* transform: scale(1); */
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 .galleryCardStyle:hover {
-  /* transform: scale(1.03); */
-  box-shadow: 0 3px 10px 2px var(--cyan);
+    /* transform: scale(1.03); */
+    box-shadow: 0 3px 10px 2px var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+    .galleryCardStyle {
+        background-color: var(--gray-dark) !important;
+    }
 }
 
 /* .coverImage {
@@ -27,11 +33,11 @@
   left: 0;
 } */
 
-/*.cardDescription {*/
-/*    color: var(--red);*/
+/*.ant-descriptions {*/
+/*    !*color: var(--background);*!*/
 /*}*/
 
-/*.ant-card .ant-card-body {*/
+/*.ant-card-body {*/
 /*    padding: 10px;*/
-/*    background: #3a3f44;*/
+/*    !*background-color: #3a3f44 !important;*!*/
 /*}*/

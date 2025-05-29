@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PageHeader } from "@ant-design/pro-components";
 import { useDispatch, useSelector } from "../../services/store/store.ts";
 import { selectGame } from "../../services/slices/detailsSlice/detailsSlice.ts";
-import { getDetailsThunk } from "../../services/slices/detailsSlice/details-thunk.ts";
+import { getDetailsThunk } from "../../services/slices/detailsSlice/thunks/details-thunk.ts";
 
 const { Content } = Layout;
 
@@ -19,17 +19,13 @@ export const DetailsPage: FC<{ children: ReactElement }> = ({ children }) => {
 
   useEffect(() => {
     if (!id) return;
-    // const abortController = new AbortController();
-    // const { signal } = abortController;
 
     const promise = dispatch(getDetailsThunk(id));
 
     return () => {
-      // abortController.abort();
       promise.abort();
-      console.log("getDetailsThunk-abortController.abort");
     };
-  }, [id]);
+  }, [id, dispatch]);
 
   if (isLoading) {
     return <Spin size={"large"} tip="Data loading..."></Spin>;

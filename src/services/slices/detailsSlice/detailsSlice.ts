@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { TDetails } from "./type";
-import { getDetailsThunk } from "./details-thunk";
+import { getDetailsThunk } from "./thunks/details-thunk.ts";
 
 export const initialState: TDetails = {
   game: null,

@@ -1,8 +1,9 @@
 .detailCardStyle {
-  background-color: var(--gray-dark);
+  background-color: var(--light);
   overflow: hidden;
   position: relative;
   border: none;
+  color: var(--foreground);
 }
 
 .poster {
@@ -24,5 +25,11 @@
   .screenShorts {
     width: 100% !important;
     padding-top: 0 !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .detailCardStyle {
+    background-color: var(--gray-dark);
   }
 }

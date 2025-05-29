@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { TState } from "./type";
-import { getGames } from "./games-thunk";
+import { getGames } from "./thunks/games-thunk.ts";
 import { RootState } from "../../store/store";
 
 export const initialState: TState = {
@@ -36,7 +36,7 @@ const gamesSlice = createSlice({
   },
 });
 
-export const slicedPage =
+export const selectSlicedPage =
   (currentPage: number, pageSize: number) =>
   ({ games }: RootState) => {
     const startIndex = (currentPage - 1) * pageSize;

@@ -24,7 +24,7 @@ export const MainPage: FC<{ children: ReactElement }> = ({ children }) => {
       </Header>
       <Filter></Filter>
       <Content className={"content"}>{children}</Content>
-      <Footer>
+      <Footer className={"footer"}>
         <Space>
           Ant Design ©{new Date().getFullYear()} Created by Maksim Dakhovnik
           <GithubOutlined />

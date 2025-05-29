@@ -11,7 +11,6 @@ export const DetailsCard: FC = () => {
 
   return (
     <>
-      {/* <Skeleton loading={loaded} active paragraph={{rows:8, width: '30%'}}> */}
       {game && (
         <Card className={style.detailCardStyle}>
           <Card.Grid hoverable={false} className={style.poster}>
@@ -41,7 +40,6 @@ export const DetailsCard: FC = () => {
               </Descriptions>
             )}
           </Card.Grid>
-          {/*<Divider variant={'solid'}></Divider>*/}
           <Card.Grid hoverable={false} className={style.screenShorts}>
             <Descriptions
               column={1}
@@ -73,13 +71,6 @@ export const DetailsCard: FC = () => {
           </Card.Grid>
         </Card>
       )}
-      {/* </Skeleton> */}
     </>
   );
 };
-
-// style={{
-//   position: 'absolute',
-//   top: 0,
-//   left: 0
-// }}
