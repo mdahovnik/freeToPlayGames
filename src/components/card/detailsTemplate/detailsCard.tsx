@@ -71,7 +71,6 @@ export const DetailsCard: FC = () => {
           </Card.Grid>
         </Card>
       )}
-      {/* </Skeleton> */}
     </>
   );
 };

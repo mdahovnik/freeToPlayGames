@@ -24,7 +24,6 @@ export const DetailsPage: FC<{ children: ReactElement }> = ({ children }) => {
 
     return () => {
       promise.abort();
-      console.log("getDetailsThunk-abortController.abort");
     };
   }, [id, dispatch]);
 
